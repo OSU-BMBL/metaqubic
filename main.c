@@ -7,12 +7,12 @@
 
 int main(const int argc, const char ** argv)
 {
-    if(strcmp(argv[1], "--geneMapping") == 0)
+    if(strcmp(argv[1], "--mapping") == 0)
     {
         printf("step 1 (Gene mapping and pairing) is processing.\n");
         
-        // install mapping tools, 
-        install_tools(argv[6]);
+        // install mapping tools but don't need it right now
+        // install_tools(argv[6]);
         step1(argc, &argv[2]);
     }
     else if(strcmp(argv[1], "--mergeMatrix") == 0)
@@ -39,5 +39,4 @@ int main(const int argc, const char ** argv)
     {
         printf("wrong arguments\n");
     }
-    
 }

@@ -5,9 +5,98 @@
 
 void step1(const int argc, const char ** argv)
 {
-    
     // check error for parameter 
     int paramenterStatus = checkParameter(argc, argv);
+    char bowtie2[1000+1];
+    char bedtool[1000+1];
+    char samtools[1000+1];
+
+    
+    if (argc > 6) // means optional command involved
+    {
+
+        int count = 4;
+        int i = 0;
+        // get bowtie2
+        while (count < argc - 2)
+        {
+            if (strcmp(argv[count], "--bowtie2") == 0)
+            {
+                i = count + 1;
+                while(i < argc - 2)
+                {
+                     if(strstr(argv[i], "--") == NULL)
+                     {
+                         strcat(bowtie2, argv[i]);
+                         strcat(bowtie2, " ");
+                     }
+                     else
+                     {
+                         break;
+                     }
+                     i++;
+                }
+                count = i;
+            }
+            count = count + 1;
+        }
+        count = 4;
+        i = 0;
+        // get bedtool
+        while (count < argc - 2)
+        {
+            if (strcmp(argv[count], "--bedtool") == 0)
+            {
+                i = count + 1;
+                while(i < argc - 2)
+                {
+                     if(strstr(argv[i], "--") == NULL)
+                     {
+                         strcat(bedtool, argv[i]);
+                         strcat(bedtool, " ");
+                     }
+                     else
+                     {
+                         break;
+                     }
+                     i++;
+                }
+                count = i;
+            }
+            count = count + 1;
+        }
+        count = 4;
+        i = 0;
+        // get samtools
+        while (count < argc - 2)
+        {
+            if (strcmp(argv[count], "--samtools") == 0)
+            {
+                i = count + 1;
+                while(i < argc - 2)
+                {
+                     if(strstr(argv[i], "--") == NULL)
+                     {
+                         strcat(samtools, argv[i]);
+                         strcat(samtools, " ");
+                     }
+                     else
+                     {
+                         break;
+                     }
+                     i++;
+                }
+                count = i;
+            }
+            count = count + 1;
+        }
+
+
+        printf("%s\n", bowtie2);
+        printf("%s\n", bedtool);
+        printf("%s\n", samtools);
+    }
+
     if(paramenterStatus == 1) // paramenter is valid, start processing
     {
         // variable intialization
@@ -67,11 +156,11 @@ void step1(const int argc, const char ** argv)
             }
 
             // call the pipeline to do gene mapping
-            step1_pipeline( dataSetList[i].fileName, IGC_database_path, DNA_file1, DNA_file2, RNA_file1, RNA_file2, output_path); 
+            step1_pipeline( dataSetList[i].fileName, IGC_database_path, DNA_file1, DNA_file2, RNA_file1, RNA_file2, output_path, bowtie2, bedtool, samtools); 
         }
         // call python script to add annotation to the new catalogs
         char command[1000+1];
-        snprintf( command, sizeof( command ), "%s%s%s%s%s%s%s", install_path, "/python/python ", install_path, "/python_script/add_annotation_to_new_catalog.py ", IGC_annotation_table, " ", output_path);
+        snprintf( command, sizeof( command ), "%s%s%s%s%s%s%s", install_path, "/python/bin/python ", install_path, "/python_script/add_annotation_to_new_catalog.py ", IGC_annotation_table, " ", output_path);
         system(command);
     }
 }
@@ -108,7 +197,7 @@ int checkParameter(const int argc, const char ** argv)
     }
 }
 
-void step1_pipeline(const char * fileName, const char * referenceDatabase, const char * DNA_file1, const char * DNA_file2, const char * RNA_file1, const char * RNA_file2, const char * outputDirectory)
+void step1_pipeline(const char * fileName, const char * referenceDatabase, const char * DNA_file1, const char * DNA_file2, const char * RNA_file1, const char * RNA_file2, const char * outputDirectory, const char * bowtie2_command, const char * bedtools_command, const char * samtools_command)
 {
     char command[1000+1];  // initialize the command string for linux command
     char DNA_outputName[1000+1] = "metagenome";
@@ -166,12 +255,12 @@ void step1_pipeline(const char * fileName, const char * referenceDatabase, const
         // bowtie2
         if(strlen(DNA_file2) == 0) // if metagenome is single-end 
         {
-            snprintf( command, sizeof( command ), "%s%s%s%s%s%s%s%s%s%s", Bowtie2_dir, "/bowtie2 -x ", build_index_directory, "/Model -U ",  DNA_file1, " -S ", true_output_path, "/", DNA_outputName, ".sam");
+            snprintf( command, sizeof( command ), "%s%s%s%s%s%s%s%s%s%s%s", Bowtie2_dir, "/bowtie2 ", bowtie2_command, " -x ", build_index_directory, "/Model -U ",  DNA_file1, " -S ", true_output_path, "/", DNA_outputName, ".sam");
             system(command);
         }
         else // if metagenome is pair-end
         {
-            snprintf( command, sizeof( command ), "%s%s%s%s%s%s%s%s%s%s%s%s", Bowtie2_dir, "/bowtie2 -x ", build_index_directory, "/Model -1 ",  DNA_file1, " -2 ", DNA_file2, " -S ", true_output_path, "/", DNA_outputName, ".sam");
+            snprintf( command, sizeof( command ), "%s%s%s%s%s%s%s%s%s%s%s%s", Bowtie2_dir, "/bowtie2 ", bowtie2_command,  " -x ", build_index_directory, "/Model -1 ",  DNA_file1, " -2 ", DNA_file2, " -S ", true_output_path, "/", DNA_outputName, ".sam");
             system(command);
         }
 
@@ -182,12 +271,12 @@ void step1_pipeline(const char * fileName, const char * referenceDatabase, const
         if(isFileExist(command) == 0) // create IGC.fa.bed
         {
             printf("hello\n");
-            snprintf( command, sizeof( command ), "%s%s%s%s%s", "awk '/^>/ {if (seqlen){print \"0\t\"seqlen}; gsub(/^>/,\"\",$1);printf(\"%s\t\",$1) ;seqlen=0;next; } { seqlen += length($0)}END{print \"0\t\"seqlen}' ", referenceDatabase, " > ", referenceDatabase, ".bed");
+            snprintf( command, sizeof( command ), "%s%s%s%s%s", "awk '/^>/ {if (seqlen){print \"0\t\"seqlen-1}; gsub(/^>/,\"\",$1);printf(\"%s\t\",$1) ;seqlen=0;next; } { seqlen += length($0)}END{print \"0\t\"seqlen-1}' ", referenceDatabase, " > ", referenceDatabase, ".bed");
             system(command);
         }
 
         // bedtools
-        snprintf( command, sizeof( command ), "%s%s%s%s%s%s%s%s%s%s%s%s", Bedtools_dir, "/bedtools coverage -abam ", true_output_path, "/", DNA_outputName, ".bam -b ", referenceDatabase, ".bed > ", true_output_path, "/", DNA_outputName, ".coverage");
+        snprintf( command, sizeof( command ), "%s%s%s%s%s%s%s%s%s%s%s%s%s", Bedtools_dir, "/bedtools coverage -abam ", true_output_path, "/", DNA_outputName, ".bam -b ", referenceDatabase, ".bed > ", true_output_path, "/", DNA_outputName, ".coverage ", bedtools_command);
         system(command);
         
         // // processing metatranscriptome dataset
@@ -195,12 +284,12 @@ void step1_pipeline(const char * fileName, const char * referenceDatabase, const
         // bowtie2
         if(strlen(RNA_file2) == 0) // if metatranscriptome is single-end
         {
-            snprintf( command, sizeof( command ), "%s%s%s%s%s%s%s%s%s%s", Bowtie2_dir, "/bowtie2 -x ", build_index_directory, "/Model -U ",  RNA_file1, " -S ", true_output_path, "/", RNA_outputName, ".sam");
+            snprintf( command, sizeof( command ), "%s%s%s%s%s%s%s%s%s%s%s", Bowtie2_dir, "/bowtie2 ",  bowtie2_command, " -x ", build_index_directory, "/Model -U ",  RNA_file1, " -S ", true_output_path, "/", RNA_outputName, ".sam");
             system(command);
         }
         else
         {
-            snprintf( command, sizeof( command ), "%s%s%s%s%s%s%s%s%s%s%s%s", Bowtie2_dir, "/bowtie2 -x ", build_index_directory, "/Model -1 ",  RNA_file1, " -2 ", RNA_file2, " -S ", true_output_path, "/", RNA_outputName, ".sam");
+            snprintf( command, sizeof( command ), "%s%s%s%s%s%s%s%s%s%s%s%s%s", Bowtie2_dir, "/bowtie2 " , bowtie2_command, " -x ", build_index_directory, "/Model -1 ",  RNA_file1, " -2 ", RNA_file2, " -S ", true_output_path, "/", RNA_outputName, ".sam");
             system(command);
         }
 
@@ -215,7 +304,7 @@ void step1_pipeline(const char * fileName, const char * referenceDatabase, const
         }
         
         // bedtools
-        snprintf( command, sizeof( command ), "%s%s%s%s%s%s%s%s%s%s%s%s", Bedtools_dir, "/bedtools coverage -abam ", true_output_path, "/", RNA_outputName, ".bam -b ", referenceDatabase, ".bed > ", true_output_path, "/", RNA_outputName, ".coverage");
+        snprintf( command, sizeof( command ), "%s%s%s%s%s%s%s%s%s%s%s%s%s", Bedtools_dir, "/bedtools coverage -abam ", true_output_path, "/", RNA_outputName, ".bam -b ", referenceDatabase, ".bed > ", true_output_path, "/", RNA_outputName, ".coverage " , bedtools_command);
         system(command);
         
         // merge dna and rna mapping result
@@ -233,15 +322,35 @@ void step1_pipeline(const char * fileName, const char * referenceDatabase, const
 
 void step2(const int argc, const char ** argv)
 {
+    char arguments[1000+1];
+    arguments[0] = '\0';
+    int count = 0;
+    while (count < argc - 2)
+    {
+        strcat(arguments, argv[count]);
+        strcat(arguments, " ");
+        count++;
+    }
+
     char command[1000+1];
-    snprintf( command, sizeof( command ), "%s%s%s%s %s %s %s %s %s", install_path, "/python/python ", install_path, "/python_script/update_matrix.py ", argv[0], argv[1], argv[2], argv[3], argv[4]);
+    snprintf( command, sizeof( command ), "%s%s%s%s%s", install_path, "/python/bin/python ", install_path, "/update_matrix.py ", arguments);
     system(command);
 }
 
 void step3(const int argc, const char ** argv)
 {
+    char arguments[1000+1];
+    arguments[0] = '\0';
+    int count = 0;
+    while (count < argc - 2)
+    {
+        strcat(arguments, argv[count]);
+        strcat(arguments, " ");
+        count++;
+    }
+
     char command[1000+1];
-    snprintf( command, sizeof( command ), "%s%s%s%s %s %s %s %s %s %s ", install_path, "/python/python ", install_path, "/python_script/calc_TPM.py ", argv[0], argv[1], argv[2], argv[3], argv[4], argv[5]);
+    snprintf( command, sizeof( command ), "%s%s%s%s%s", install_path, "/python/bin/python ", install_path, "/calc_TPM.py ", arguments);
     system(command);
 }
 
@@ -258,7 +367,7 @@ void step4(const int argc, const char ** argv)
     }
 
     char command[1000+1];
-    snprintf( command, sizeof( command ), "%s%s%s%s%s", install_path, "/python/python ", install_path, "/python_script/biclustering.py ", arguments);
+    snprintf( command, sizeof( command ), "%s%s%s%s%s", install_path, "/python/bin/python ", install_path, "/python_script/biclustering.py ", arguments);
     system(command);
 }
 
@@ -275,6 +384,6 @@ void step5(const int argc, const char ** argv)
     }
 
     char command[1000+1];
-    snprintf( command, sizeof( command ), "%s%s%s%s%s", install_path, "/python/python ", install_path, "/gene_enrichment.py ", arguments);
+    snprintf( command, sizeof( command ), "%s%s%s%s%s", install_path, "/python/bin/python ", install_path, "/gene_enrichment.py ", arguments);
     system(command);
 }
