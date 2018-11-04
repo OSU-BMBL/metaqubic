@@ -8,7 +8,7 @@ void step1(const int argc, const char ** argv)
     strncpy(arguments, install_path, 1000);
     strcat(arguments, " ");
     int count = 0;
-    while (count < argc - 2)
+    while (count < argc - 3)
     {
         strcat(arguments, argv[count]);
         strcat(arguments, " ");
@@ -16,7 +16,7 @@ void step1(const int argc, const char ** argv)
     }
 
     char command[1000+1];
-    snprintf( command, sizeof( command ), "%s%s%s%s%s", install_path, "/python/bin/python ", install_path, "/update_matrix.py ", arguments);
+    snprintf( command, sizeof( command ), "%s%s%s%s%s", install_path, "/python/bin/python ", install_path, "/python_script/step1.py ", arguments);
     system(command);
 }
 void step2(const int argc, const char ** argv)
@@ -24,7 +24,7 @@ void step2(const int argc, const char ** argv)
     char arguments[1000+1];
     arguments[0] = '\0';
     int count = 0;
-    while (count < argc - 2)
+    while (count < argc - 3)
     {
         strcat(arguments, argv[count]);
         strcat(arguments, " ");
@@ -32,7 +32,7 @@ void step2(const int argc, const char ** argv)
     }
 
     char command[1000+1];
-    snprintf( command, sizeof( command ), "%s%s%s%s%s", install_path, "/python/bin/python ", install_path, "/update_matrix.py ", arguments);
+    snprintf( command, sizeof( command ), "%s%s%s%s%s", install_path, "/python/bin/python ", install_path, "/python_script/update_matrix.py ", arguments);
     system(command);
 }
 
@@ -41,7 +41,7 @@ void step3(const int argc, const char ** argv)
     char arguments[1000+1];
     arguments[0] = '\0';
     int count = 0;
-    while (count < argc - 2)
+    while (count < argc - 3)
     {
         strcat(arguments, argv[count]);
         strcat(arguments, " ");
@@ -49,7 +49,7 @@ void step3(const int argc, const char ** argv)
     }
 
     char command[1000+1];
-    snprintf( command, sizeof( command ), "%s%s%s%s%s", install_path, "/python/bin/python ", install_path, "/calc_TPM.py ", arguments);
+    snprintf( command, sizeof( command ), "%s%s%s%s%s", install_path, "/python/bin/python ", install_path, "/python_script/calc_TPM.py ", arguments);
     system(command);
 }
 
@@ -58,7 +58,7 @@ void step4(const int argc, const char ** argv)
     char arguments[1000+1];
     arguments[0] = '\0';
     int count = 0;
-    while (count < argc - 2)
+    while (count < argc - 3)
     {
         strcat(arguments, argv[count]);
         strcat(arguments, " ");
@@ -75,7 +75,7 @@ void step5(const int argc, const char ** argv)
     char arguments[1000+1];
     arguments[0] = '\0';
     int count = 0;
-    while (count < argc - 2)
+    while (count < argc - 3)
     {
         strcat(arguments, argv[count]);
         strcat(arguments, " ");
@@ -83,6 +83,6 @@ void step5(const int argc, const char ** argv)
     }
 
     char command[1000+1];
-    snprintf( command, sizeof( command ), "%s%s%s%s%s", install_path, "/python/bin/python ", install_path, "/gene_enrichment.py ", arguments);
+    snprintf( command, sizeof( command ), "%s%s%s%s%s", install_path, "/python/bin/python ", install_path, "/python_script/gene_enrichment.py ", arguments);
     system(command);
 }
