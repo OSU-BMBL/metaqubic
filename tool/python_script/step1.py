@@ -35,15 +35,15 @@ if os.path.isdir(output_path) == False:
 DNA_outputName = "metagenome"
 RNA_outputName = "metatranscriptome"
 Bowtie2_dir = tool_path + "/bowtie2"
-if os.path.isdir(Bowtie2_dir) == False or os.path.exists(Bowtie2_dir + "/bowtie2-build") == False or os.path.exists(Bowtie2_dir + "/bowtie2") == False:
+if os.path.isdir(Bowtie2_dir) == False or os.path.exists(Bowtie2_dir + "/bowtie2-build-s") == False or os.path.exists(Bowtie2_dir + "/bowtie2") == False:
     print "ERROR - can't detect bowtie2" 
     sys.exit()
 Bedtools_dir = tool_path + "/bedtools/bin"
-if os.path.isdir(Bedtools_dir) == False or os.path.exists(Bedtools_dir + "/bedtools"):
+if os.path.isdir(Bedtools_dir) == False or os.path.exists(Bedtools_dir + "/bedtools") == False:
     print "ERROR - can't detect Bedtools" 
     sys.exit()
-Samtools_dir = tool_path + "/samtools "
-if os.path.isdir(Samtools_dir) == False or os.path.exists(Samtools_dir + "/samtools"):
+Samtools_dir = tool_path + "/samtools"
+if os.path.isdir(Samtools_dir) == False or os.path.exists(Samtools_dir + "/samtools") == False:
     print "ERROR - can't detect Samtools" 
     sys.exit()
 build_index = os.path.dirname(IGC_reference_database) + "/build_index"
@@ -54,9 +54,9 @@ def pipeline(build_index, provideDB_path, DNA_dir, RNA_dir, DNA_first, DNA_secon
     # build index for the reference database
     if os.path.isdir( build_index ) == True: # if build_index folder exists
         if len(os.listdir(build_index)) == 0: # if it is empty
-            os.system(Bowtie2_dir + "/bowtie2-build --large-index " + provideDB_path + " " + build_index + "/Model") #  build index
+            os.system(Bowtie2_dir + "/bowtie2-build-s --large-index " + provideDB_path + " " + build_index + "/Model") #  build index
     else:
-        os.system(Bowtie2_dir + "/bowtie2-build --large-index " + provideDB_path + " " + build_index + "/Model") #  build index
+        os.system(Bowtie2_dir + "/bowtie2-build-s --large-index " + provideDB_path + " " + build_index + "/Model") #  build index
     
     # metagenome mapping
     # bowtie2
@@ -84,10 +84,18 @@ def pipeline(build_index, provideDB_path, DNA_dir, RNA_dir, DNA_first, DNA_secon
 
     # marging
     os.system("bash -c \" join -j 1 -o 1.1,1.2,1.3,1.4,1.5,1.7,2.4,2.5,2.7 <(sort -k1 " + output_path + "/" + DNA_outputName + ".coverage) <(sort -k1 " + output_path + "/" + RNA_outputName + ".coverage) > " + output_path + "/" + DNA_outputName + "_" + RNA_outputName + ".coverage \"")
-    os.system("awk '{if ($3 + 0 != 0 && $6 + 0 != 0 && $9 + 0 != 0) print $1 \"\t\" $2 \"\t\" $3 \"\t\" $4 \"\t\" $5 \"\t\" $6 \"\t\" $7 \"\t\" $8 \"\t\" $9 \"\t\" (($7 / $3) / ($4 / $3)) \"\t\" (($7 / $9) / ($4 / $6))}' " + output_path + "/" + DNA_outputName + "_" + RNA_outputName + ".coverage > " + output_path + "/" + DNA_outputName + "_" + RNA_outputName + "_integrative_coverage")
+    os.system("awk '{if ($3 + 0 != 0 && $6 + 0 != 0 && $9 + 0 != 0) print $1 \"\t\" $2 \"\t\" $3 \"\t\" $4 \"\t\" $5 \"\t\" $6 \"\t\" $7 \"\t\" $8 \"\t\" $9 \"\t\" (($7 / $3) / ($4 / $3)) \"\t\" (($7 / $9) / ($4 / $6))}' " + output_path + "/" + DNA_outputName + "_" + RNA_outputName + ".coverage > " + output_path + "/" + DNA_outputName + "_" + RNA_outputName + ".integrative_coverage")
 
 
 # detecting datasets directory and processing them
+
+alignment_results = output_path + "/alignment_results"
+if os.path.isdir(alignment_results) == False:
+    os.system("mkdir " + alignment_results)
+catalog_dir = output_path + "/catalogs"
+if os.path.isdir(catalog_dir) == False:
+    os.system("mkdir " + catalog_dir)
+
 fileNames = os.listdir(data_path)
 for fileName in fileNames:
     DNA_first = ""
@@ -113,7 +121,15 @@ for fileName in fileNames:
             RNA_second = os.listdir(data_path + "/" + fileName + "/RNA")[1]
         else:
             print "ERROR - The dataset: " + fileName + " missing metatranscriptome files"
+        # create output file
+        if os.path.isdir(alignment_results + "/" + fileName) == False:
+            os.system("mkdir " + alignment_results + "/" + fileName)
         # passing parameter
-        pipeline(build_index, IGC_reference_database, data_path + "/" + fileName + "/DNA", data_path + "/" + fileName + "/RNA", DNA_first, DNA_second, RNA_first, RNA_second, output_path)
+        pipeline(build_index, IGC_reference_database, data_path + "/" + fileName + "/DNA", data_path + "/" + fileName + "/RNA", DNA_first, DNA_second, RNA_first, RNA_second, alignment_results + "/" + fileName)
     else: # missing dna or rna dataset report error
         print "ERROR - The dataset: " + fileName + " missing metagenome or metatranscriptome datasets. Skip to processing next datasets"
+
+# extract fhe integrative coverage file and put it in the catalog folder
+for fileName in os.listdir(alignment_results):
+    if os.path.exists(alignment_results + "/" + fileName + "/" + DNA_outputName + "_" + RNA_outputName + ".integrative_coverage") == True:
+        os.system("mv " + alignment_results + "/" + fileName + "/" + DNA_outputName + "_" + RNA_outputName + ".integrative_coverage " + catalog_dir + "/" + fileName + ".integrative_coverage")
