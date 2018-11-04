@@ -8,7 +8,7 @@ mkdir ../results
 cd tool && wget https://repo.continuum.io/archive/Anaconda2-5.3.0-Linux-x86_64.sh && bash Anaconda2-5.3.0-Linux-x86_64.sh << ANSWERS
 
 yes
-tool/python -u
+./python
 no
 no
 ANSWERS
