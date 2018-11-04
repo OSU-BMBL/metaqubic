@@ -69,23 +69,23 @@ def pipeline(build_index, provideDB_path, DNA_dir, RNA_dir, DNA_first, DNA_secon
     if os.path.exists(provideDB_path + ".bed") == False:
         os.system("awk '/^>/ {if (seqlen){print \"0\t\"seqlen-1}; gsub(/^>/,\"\",$1);printf(\"%s\t\",$1) ;seqlen=0;next; } { seqlen += length($0)}END{print \"0\t\"seqlen-1}' " + provideDB_path + " > " + provideDB_path + ".bed")
     #bedtools
-    os.system(Bedtools_dir + "/bedtools coverage -abam " + output_path + "/" + DNA_outputName + ".bam -b " + provideDB_path + ".bed > " + output_path + DNA_outputName + ".coverage")
+    os.system(Bedtools_dir + "/bedtools coverage -abam " + output_path + "/" + DNA_outputName + ".bam -b " + provideDB_path + ".bed > " + output_path + "/" + DNA_outputName + ".coverage")
 
     # metatranscriptome mapping
     #bowtie2
-    if RNA_second == False: # single end
+    if RNA_second == "false": # single end
         os.system(Bowtie2_dir + "/bowtie2 -x " + build_index + "/Model -U " + RNA_dir + "/" + RNA_first + " -S " + output_path + "/" + RNA_outputName + ".sam")
     else:
         os.system(Bowtie2_dir + "/bowtie2 -x " + build_index + "/Model -1 " + RNA_dir + "/" + RNA_first + " -2 " + RNA_dir + "/" + RNA_second + " -S " + output_path + "/" + RNA_outputName + ".sam")
     # samtools
     os.system(Samtools_dir + "/samtools view -bS " + output_path + "/" + RNA_outputName + ".sam > " + output_path + "/" + RNA_outputName + ".bam")
     #bedtools
-    os.system(Bedtools_dir + "/bedtools coverage -abam " + output_path + "/" + RNA_outputName + ".bam -b " + provideDB_path + ".bed > " + output_path + RNA_outputName + ".coverage")
+    os.system(Bedtools_dir + "/bedtools coverage -abam " + output_path + "/" + RNA_outputName + ".bam -b " + provideDB_path + ".bed > " + output_path + "/" + RNA_outputName + ".coverage")
 
-    # marging
+    # merging
     os.system("bash -c \" join -j 1 -o 1.1,1.2,1.3,1.4,1.5,1.7,2.4,2.5,2.7 <(sort -k1 " + output_path + "/" + DNA_outputName + ".coverage) <(sort -k1 " + output_path + "/" + RNA_outputName + ".coverage) > " + output_path + "/" + DNA_outputName + "_" + RNA_outputName + ".coverage \"")
     os.system("awk '{if ($3 + 0 != 0 && $6 + 0 != 0 && $9 + 0 != 0) print $1 \"\t\" $2 \"\t\" $3 \"\t\" $4 \"\t\" $5 \"\t\" $6 \"\t\" $7 \"\t\" $8 \"\t\" $9 \"\t\" (($7 / $3) / ($4 / $3)) \"\t\" (($7 / $9) / ($4 / $6))}' " + output_path + "/" + DNA_outputName + "_" + RNA_outputName + ".coverage > " + output_path + "/" + DNA_outputName + "_" + RNA_outputName + ".integrative_coverage")
-
+    os.system("rm -rf " + output_path + "/" + DNA_outputName + "_" + RNA_outputName + ".coverage" )
 
 # detecting datasets directory and processing them
 
