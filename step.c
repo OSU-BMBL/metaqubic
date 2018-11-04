@@ -22,7 +22,8 @@ void step1(const int argc, const char ** argv)
 void step2(const int argc, const char ** argv)
 {
     char arguments[1000+1];
-    arguments[0] = '\0';
+    strncpy(arguments, install_path, 1000);
+    strcat(arguments, " ");
     int count = 0;
     while (count < argc - 3)
     {
@@ -32,7 +33,7 @@ void step2(const int argc, const char ** argv)
     }
 
     char command[1000+1];
-    snprintf( command, sizeof( command ), "%s%s%s%s%s", install_path, "/python/bin/python ", install_path, "/python_script/update_matrix.py ", arguments);
+    snprintf( command, sizeof( command ), "%s%s%s%s%s", install_path, "/python/bin/python ", install_path, "/python_script/step2.py ", arguments);
     system(command);
 }
 
