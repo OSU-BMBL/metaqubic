@@ -1,10 +1,17 @@
 gcc *.c -o metaqubic
 
-# uncompresse tool folder
-tar zxvf tool.tar.gz && rm -rf tool.tar.gz
+# make result folder
+mkdir ../results
 
 # install anaconda
-cd tool && wget https://repo.continuum.io/archive/Anaconda2-5.3.0-Linux-x86_64.sh && bash Anaconda2-5.3.0-Linux-x86_64.sh
+
+cd tool && wget https://repo.continuum.io/archive/Anaconda2-5.3.0-Linux-x86_64.sh && bash Anaconda2-5.3.0-Linux-x86_64.sh << ANSWERS
+
+yes
+tool/python -u
+no
+no
+ANSWERS
 cd ..
 
 # install bedtools
