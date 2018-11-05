@@ -142,8 +142,6 @@ DNA_matrix_outFile = open(output_path + "/TPM-filtered_DNA_matrix", "w")
 DNA_matrix_outFile.write(DNA_matrix_data_original[0])
 count = 1
 while count < len(DNA_matrix_data_original):
-    print DNA_matrix_data[count][1:]
-    print str(keep_this_line(DNA_matrix_data[count][1:]))
     if keep_this_line(DNA_matrix_data[count][1:]) == True:
         DNA_matrix_outFile.write(DNA_matrix_data_original[count])
 
