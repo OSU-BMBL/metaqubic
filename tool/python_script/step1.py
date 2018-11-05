@@ -18,7 +18,7 @@ while count < len(sys.argv):
         IGC_reference_database = sys.argv[count + 1]
     elif sys.argv[count] == '-o':
         output_path = sys.argv[count + 1]
-    count = count + 2
+    count = count + 1
 # check argument
 if os.path.isdir(data_path) == False:
     print "ERROR - The path of data directory is invalid: " + data_path
@@ -29,6 +29,11 @@ if os.path.exists(IGC_reference_database) == False:
 if os.path.isdir(output_path) == False:
     print "ERROR - The path of output directory is invalid: " + IGC_reference_database
     sys.exit()
+
+# print out arguments for user
+print "The path of genome datasets is " + data_path
+print "The path of reference database is " + IGC_reference_database
+print "The output path is " + output_path
 
 
 #  set tool directory
