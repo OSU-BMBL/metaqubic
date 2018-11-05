@@ -22,8 +22,7 @@ void step1(const int argc, const char ** argv)
 void step2(const int argc, const char ** argv)
 {
     char arguments[1000+1];
-    strncpy(arguments, install_path, 1000);
-    strcat(arguments, " ");
+    arguments[0] = '\0';
     int count = 0;
     while (count < argc - 3)
     {
@@ -50,7 +49,7 @@ void step3(const int argc, const char ** argv)
     }
 
     char command[1000+1];
-    snprintf( command, sizeof( command ), "%s%s%s%s%s", install_path, "/python/bin/python ", install_path, "/python_script/calc_TPM.py ", arguments);
+    snprintf( command, sizeof( command ), "%s%s%s%s%s", install_path, "/python/bin/python ", install_path, "/python_script/step3.py ", arguments);
     system(command);
 }
 
@@ -67,7 +66,7 @@ void step4(const int argc, const char ** argv)
     }
 
     char command[1000+1];
-    snprintf( command, sizeof( command ), "%s%s%s%s%s", install_path, "/python/bin/python ", install_path, "/python_script/biclustering.py ", arguments);
+    snprintf( command, sizeof( command ), "%s%s%s%s%s", install_path, "/python/bin/python ", install_path, "/python_script/step4.py ", arguments);
     system(command);
 }
 
@@ -84,6 +83,6 @@ void step5(const int argc, const char ** argv)
     }
 
     char command[1000+1];
-    snprintf( command, sizeof( command ), "%s%s%s%s%s", install_path, "/python/bin/python ", install_path, "/python_script/gene_enrichment.py ", arguments);
+    snprintf( command, sizeof( command ), "%s%s%s%s%s", install_path, "/python/bin/python ", install_path, "/python_script/step5.py ", arguments);
     system(command);
 }

@@ -13,7 +13,7 @@ int main(const int argc, const char ** argv)
     if (isDirExist(install_path) == 0)
     {
         printf("ERROR - Tool path is invalid: %s\n", install_path);
-        system("exit");
+        exit(0);
     }
 
     if(strcmp(argv[2], "--mapping") == 0)
@@ -21,7 +21,7 @@ int main(const int argc, const char ** argv)
         printf("step 1 (Gene mapping and pairing) is processing.\n");
         step1(argc, &argv[3]);
     }
-    else if(strcmp(argv[2], "--mergeMatrix") == 0)
+    else if(strcmp(argv[2], "--expressionmatrix") == 0)
     {
         printf("step 2 (merge catalog to the matrix) is processing.\n");
         step2(argc, &argv[3]);
