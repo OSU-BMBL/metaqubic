@@ -36,10 +36,15 @@ int main(const int argc, const char ** argv)
         printf("step 4 (biclustering) is processing.\n");
         step4(argc, &argv[3]);
     }
-    else if(strcmp(argv[2], "--enrichment") == 0)
+    else if(strcmp(argv[2], "--sample_enrichment") == 0)
     {
-        printf("step 5 (enrichment) is processing.\n");
-        step5(argc, &argv[3]);
+        printf("step 5 (sample enrichment) is processing.\n");
+        step5_sample(argc, &argv[3]);
+    }
+    else if(strcmp(argv[2], "--gene_enrichment") == 0)
+    {
+        printf("step 5 (gene enrichment) is processing.\n");
+        step5_gene(argc, &argv[3]);
     }
     else
     {

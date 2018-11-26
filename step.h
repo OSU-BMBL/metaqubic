@@ -14,5 +14,8 @@ void step3(const int argc, const char ** argv);
 // main function for step4
 void step4(const int argc, const char ** argv);
 
-// main function for step5
-void step5(const int argc, const char ** argv);
+// main function for step5_sample
+void step5_sample(const int argc, const char ** argv);
+
+// main function for step5_gene
+void step5_gene(const int argc, const char ** argv);
