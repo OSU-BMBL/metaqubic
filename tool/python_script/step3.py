@@ -62,7 +62,7 @@ else:
 # return false if all element less than cut off value
 def keep_this_line(aList):
     for element in aList:
-        if float(element) >= cutoff_value:
+        if float(element) > cutoff_value:
             return True
     return False
 
