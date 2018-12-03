@@ -2,4 +2,4 @@
 A biclustering-based package for metagenomic and metatranscriptomic data 
 
 
-Tutorial: http://bmbl.sdstate.edu/metaqubic/MetaQubic_Tutorial.html
+Tutorial: http://bmbl.sdstate.edu/metaqubic/Tutorial/MetaQubic_Tutorial.html
