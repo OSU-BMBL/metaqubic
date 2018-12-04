@@ -1,10 +1,9 @@
-gcc *.c -o metaqubic
+gcc *.c -o runmeta
 
-# make result folder
-mkdir ../results
+# set tool path
+sed -i "11i strncpy(install_path, \"$(pwd)\", 1000);" main.c
 
 # install anaconda
-
 cd tool && wget https://repo.continuum.io/archive/Anaconda2-5.3.0-Linux-x86_64.sh && bash Anaconda2-5.3.0-Linux-x86_64.sh << ANSWERS
 
 yes
@@ -12,6 +11,7 @@ yes
 no
 no
 ANSWERS
+cd python/bin/pip install rpy2==2.8.6
 cd ..
 
 # install bedtools

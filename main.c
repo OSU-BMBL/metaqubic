@@ -8,43 +8,43 @@ int isDirExist(const char * DirectoryPath);
 
 int main(const int argc, const char ** argv)
 {
+    strncpy(install_path, "/pylon5/ci4s87p/minxuan/final_test/metaqubic-master", 1000);
 
-    strncpy(install_path, argv[1], 1000);
+    strcat(install_path, "/tool/");
+
+    // insert tool path to the argv[1]
+
+
     if (isDirExist(install_path) == 0)
     {
         printf("ERROR - Tool path is invalid: %s\n", install_path);
         exit(0);
     }
 
-    if(strcmp(argv[2], "--mapping") == 0)
+    if(strcmp(argv[1], "--mapping") == 0)
     {
         printf("step 1 (Gene mapping and pairing) is processing.\n");
-        step1(argc, &argv[3]);
+        step1(argc, &argv[2]);
     }
-    else if(strcmp(argv[2], "--expressionmatrix") == 0)
+    else if(strcmp(argv[1], "--CatToMat") == 0)
     {
         printf("step 2 (merge catalog to the matrix) is processing.\n");
-        step2(argc, &argv[3]);
+        step2(argc, &argv[2]);
     }
-    else if(strcmp(argv[2], "--filtering") == 0)
+    else if(strcmp(argv[1], "--filtering") == 0)
     {
         printf("step 3 (TPM normalizationa dn filtering) is processing.\n");
-        step3(argc, &argv[3]);
+        step3(argc, &argv[2]);
     }
     else if(strcmp(argv[2], "--biclustering") == 0)
     {
         printf("step 4 (biclustering) is processing.\n");
-        step4(argc, &argv[3]);
+        step4(argc, &argv[2]);
     }
-    else if(strcmp(argv[2], "--sample_enrichment") == 0)
+    else if(strcmp(argv[1], "--enrichment") == 0)
     {
-        printf("step 5 (sample enrichment) is processing.\n");
-        step5_sample(argc, &argv[3]);
-    }
-    else if(strcmp(argv[2], "--gene_enrichment") == 0)
-    {
-        printf("step 5 (gene enrichment) is processing.\n");
-        step5_gene(argc, &argv[3]);
+        printf("step 5 (enrichment analysis) is processing.\n");
+        step5_sample(argc, &argv[2]);
     }
     else
     {
