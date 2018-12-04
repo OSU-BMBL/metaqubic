@@ -7,25 +7,41 @@ IGC_reference_database = ""
 dna_matrix_path = ""
 rna_matrix_path = ""
 rna_dna_matrix_path = ""
+matrix_folder
 output_path = ""
 cutoff_value = 1.0
+sample_value = 1
 
 # parsing arguments
 count = 0
 while count < len(sys.argv):
     if sys.argv[count] == '-i':
         IGC_reference_database = sys.argv[count + 1]
-    elif sys.argv[count] == '-dna':
-        dna_matrix_path = sys.argv[count + 1]
-    elif sys.argv[count] == '-rna':
-        rna_matrix_path = sys.argv[count + 1]
-    elif sys.argv[count] == '-rdln':
-        rna_dna_matrix_path = sys.argv[count + 1]
+    elif sys.argv[count] == '-m':
+        matrix_folder = sys.argv[count + 1]
     elif sys.argv[count] == '-o':
         output_path = sys.argv[count + 1]
-    elif sys.argv[count] == '-v':
+    elif sys.argv[count] == '-minTPM':
         cutoff_value = float(sys.argv[count + 1])
+    elif sys.argv[count] == '-NominTPM':
+        sample_value = int(sys.argv[count + 1])
     count = count + 1
+
+# get 3 matrices names
+fileNames = os.listdir(matrix_folder)
+if len(fileNames) != 3:
+    print "ERROR - only DNA, RNA, RDRPK matrix in the folder:" + matrix_folder
+    sys.exit()
+else:
+    for fileName in fileNames:
+        if fileName.find("DNA") != -1:
+            dna_matrix_path = fileName
+        elif fileName.find("RNA") != -1:
+            rna_matrix_path = fileName
+        elif fileName.find("RDRPK") != -1:
+            rna_dna_matrix_path = fileName
+        else:
+            print "ERROR - can't recognize this file: " + fileName
 
 # check arguments
 if os.path.exists(IGC_reference_database) == False:
@@ -61,10 +77,14 @@ else:
 # return true if at least one element greater than cut off value
 # return false if all element less than cut off value
 def keep_this_line(aList):
+    count = 0
     for element in aList:
-        if float(element) > cutoff_value:
-            return True
-    return False
+        if float(element) >= cutoff_value:
+            count = count + 1
+    if count >= sample_value:
+        return True
+    else:
+        return False
 
 # get gene length
 IGC_reference_database_file = open(IGC_reference_database)
@@ -88,6 +108,7 @@ while count < len(IGC_reference):
 # ***************************************************************************************************************
 DNA_matrix_file = open(dna_matrix_path)
 DNA_matrix_data = DNA_matrix_file.readlines()
+DNA_matrix_length_before_filter = len(DNA_matrix_data) - 1
 DNA_matrix_data_original = copy.deepcopy(DNA_matrix_data)
 row = 0
 column = 0
@@ -138,12 +159,14 @@ for line in DNA_matrix_data[1:]:
     if keep_this_line(line[1:]) == True:
         count = count + 1
 # write to the file
-DNA_matrix_outFile = open(output_path + "/TPM-filtered_DNA_matrix", "w")
+DNA_matrix_outFile = open(output_path + "/DNA_hGEM_filt.txt", "w")
 DNA_matrix_outFile.write(DNA_matrix_data_original[0])
 count = 1
+DNA_matrix_length_after_filter = 0
 while count < len(DNA_matrix_data_original):
     if keep_this_line(DNA_matrix_data[count][1:]) == True:
         DNA_matrix_outFile.write(DNA_matrix_data_original[count])
+        DNA_matrix_length_after_filter = DNA_matrix_length_after_filter + 1
 
     count = count + 1
 
@@ -154,6 +177,7 @@ DNA_matrix_outFile.close()
 # ***************************************************************************************************************
 RNA_matrix_file = open(rna_matrix_path)
 RNA_matrix_data = RNA_matrix_file.readlines()
+RNA_matrix_length_before_filter = len(RNA_matrix_data) - 1
 RNA_matrix_data_original = copy.deepcopy(RNA_matrix_data)
 row = 0
 column = 0
@@ -207,12 +231,14 @@ for line in RNA_matrix_data[1:]:
         count = count + 1
     
 # write to the file
-RNA_matrix_outFile = open(output_path + "/TPM-filtered_RNA_matrix", "w")
+RNA_matrix_outFile = open(output_path + "/RNA_hGEM_filt.txt", "w")
 RNA_matrix_outFile.write(RNA_matrix_data_original[0])
 count = 1
+RNA_matrix_length_after_filter = 0
 while count < len(RNA_matrix_data_original):
     if keep_this_line(RNA_matrix_data[count][1:]) == True:
         RNA_matrix_outFile.write(RNA_matrix_data_original[count])
+        RNA_matrix_length_after_filter = RNA_matrix_length_after_filter + 1
 
     count = count + 1
 
@@ -222,8 +248,8 @@ RNA_matrix_outFile.close()
 # ***************************************************************************************************************
 # start looking for mutual gene list:
 # ***************************************************************************************************************
-TPM_DNA_matrix = open(output_path + "/TPM-filtered_DNA_matrix")
-TPM_RNA_matrix = open(output_path + "/TPM-filtered_RNA_matrix")
+TPM_DNA_matrix = open(output_path + "/DNA_hGEM_filt.txt")
+TPM_RNA_matrix = open(output_path + "/RNA_hGEM_filt.txt")
 TPM_DNA_matrix_data = TPM_DNA_matrix.readlines()
 TPM_RNA_matrix_data = TPM_RNA_matrix.readlines()
 
@@ -237,21 +263,27 @@ RNA_gene_list = []
 for line in TPM_RNA_matrix_data[1:]:
     RNA_gene_list.append(line.split('\t')[0])
 
-# output mutual gene list
+# get mutual gene list
 mutual_gene_list = set(DNA_gene_list).intersection(RNA_gene_list)
-mutual_gene_list_outFile = open(output_path + "/mutual_gene_list", "w")
-mutual_gene_dictionary = {}
-for element in mutual_gene_list:
-    mutual_gene_dictionary[element] = element
-    mutual_gene_list_outFile.write(element + '\n')
 
 # output filtered RNA/DNA matrix
 RNA_DNA_matrix_file = open(rna_dna_matrix_path)
 RNA_DNA_matrix_data = RNA_DNA_matrix_file.readlines()
-RNA_DNA_matrix_outFile = open(output_path + "/TPM-filtered_RNA_DNA_matrix", "w")
+RNA_DNA_matrix_outFile = open(output_path + "/RDRPK_hGEM_filt.txt", "w")
 RNA_DNA_matrix_outFile.write(RNA_DNA_matrix_data[0])
 for line in RNA_DNA_matrix_data[1:]:
     if line.split('\t')[0] in mutual_gene_dictionary:
         RNA_DNA_matrix_outFile.write(line)
 
+
+# write summary file
+outFile_summary = open(output_path + "/hGEM_filt.summary")
+outFile_summary.write("DNA TPM filtering:\n")
+rate = float((DNA_matrix_length_before_filter - DNA_matrix_length_after_filter) / DNA_matrix_length_before_filter) * 100
+outFile_summary.write("Total: " + str(DNA_matrix_length_before_filter) + " genes\tRemoval: " + str(DNA_matrix_length_before_filter - DNA_matrix_length_after_filter) + " genes\tRemaining: " + str(DNA_matrix_length_after_filter) + "genes\tFilter_rate: " + str(rate) + "\n\n")
+outFile_summary.write("RNA TPM filtering:\n")
+rate = float((RNA_matrix_length_before_filter - RNA_matrix_length_after_filter) / RNA_matrix_length_before_filter) * 100
+outFile_summary.write("Total: " + str(RNA_matrix_length_before_filter) + " genes\tRemoval: " + str(RNA_matrix_length_before_filter - RNA_matrix_length_after_filter) + " genes\tRemaining: " + str(RNA_matrix_length_after_filter) + "genes\tFilter_rate: " + str(rate) + "\n\n")
+outFile_summary.write("DNA & RNA TPM intersection: " + str(len(mutual_gene_list)) + " genes\n\n")
+outFile_summary.write("RD-RPK hGEM: " + str(len(mutual_gene_list)) + " X " + str(len(RNA_DNA_matrix_data[1:])) + "samples\n")
 

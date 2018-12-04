@@ -9,11 +9,11 @@ argument = ""
 
 count = 0
 while count < len(sys.argv):
-    if sys.argv[count] == "-rdln":
+    if sys.argv[count] == "-i":
         rdln_matrix = sys.argv[count + 1]
     elif sys.argv[count] == "-o":
         output_path = sys.argv[count + 1]
-    elif sys.argv[count] == '--qubic':
+    elif sys.argv[count] == '--QUBIC':
         for parameter in sys.argv[count + 1:]:
             argument = argument + " " + parameter
             count = count + 1
@@ -26,11 +26,11 @@ if os.path.isdir(output_path) == False:
 
  # set default value to qubic
 if argument.find("-f") == -1:
-    argument = argument + " -f 0.3"
+    argument = argument + " -f 0.8"
 if argument.find("-c") == -1:
     argument = argument + " -c 1"
 if argument.find("-o") == -1:
-    argument = argument + " -o 200"
+    argument = argument + " -o 100"
 if argument.find("-k") == -1:
     argument = argument + " -k 20"
 
