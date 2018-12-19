@@ -1,7 +1,6 @@
-gcc *.c -o runmeta
-
 # set tool path
 sed -i "11i strncpy(install_path, \"$(pwd)\", 1000);" main.c
+gcc *.c -o runmeta
 
 # install anaconda
 cd tool && wget https://repo.continuum.io/archive/Anaconda2-5.3.0-Linux-x86_64.sh && bash Anaconda2-5.3.0-Linux-x86_64.sh << ANSWERS
