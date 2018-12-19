@@ -44,7 +44,7 @@ int main(const int argc, const char ** argv)
     else if(strcmp(argv[1], "--enrichment") == 0)
     {
         printf("step 5 (enrichment analysis) is processing.\n");
-        step5_sample(argc, &argv[2]);
+        step5(argc, &argv[2]);
     }
     else
     {
