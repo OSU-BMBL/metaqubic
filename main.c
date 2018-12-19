@@ -8,8 +8,7 @@ int isDirExist(const char * DirectoryPath);
 
 int main(const int argc, const char ** argv)
 {
-    strncpy(install_path, "/pylon5/ci4s87p/minxuan/final_test/metaqubic-master", 1000);
-
+    
     strcat(install_path, "/tool/");
 
     // insert tool path to the argv[1]
