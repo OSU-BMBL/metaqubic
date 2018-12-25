@@ -29,7 +29,7 @@ uint32_t MAX_U32 = std::numeric_limits<uint32_t>::max();
 uint64_t MIN_U64 = std::numeric_limits<uint64_t>::min();
 uint64_t MAX_U64 = std::numeric_limits<uint64_t>::max();
 size_t   MIN_SIZE_T = std::numeric_limits<size_t>::min();
-size_t   maxSize_T = std::numeric_limits<size_t>::max();
+size_t   MAX_SIZE_T = std::numeric_limits<size_t>::max();
 
 int      MIN_I   = std::numeric_limits<int>::min();
 int      MAX_I   = std::numeric_limits<int>::max();

@@ -373,7 +373,7 @@ public:
 		perf_ = perfectScore;
 		local_ = local;
 		ndiag_ = (ncol + nrow - 1 + 1) / per_;
-		locol_ = maxSize_T;
+		locol_ = MAX_SIZE_T;
 		hicol_ = MIN_SIZE_T;
 //		debug_ = debug;
 		debug_ = true;

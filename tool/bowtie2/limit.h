@@ -32,7 +32,7 @@ extern uint32_t MAX_U32;
 extern uint64_t MIN_U64;
 extern uint64_t MAX_U64;
 extern size_t   MIN_SIZE_T;
-extern size_t   maxSize_T;
+extern size_t   MAX_SIZE_T;
 
 extern int     MIN_I;
 extern int     MAX_I;

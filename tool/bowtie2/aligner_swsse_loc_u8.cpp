@@ -483,7 +483,7 @@ TAlScore SwAligner::alignGatherLoc8(int& flag, bool debug) {
 	// it difficult to use the first-row results in the next row, but it might
 	// be the simplest and least disruptive way to deal with the st_ constraint.
 	
-	size_t off = maxSize_T, lastoff;
+	size_t off = MAX_SIZE_T, lastoff;
 	bool bailed = false;
 	for(size_t i = (size_t)rfi_; i < (size_t)rff_; i++) {
 		// Swap left and right; vbuf_l is the vector on the left, which we
@@ -693,7 +693,7 @@ TAlScore SwAligner::alignGatherLoc8(int& flag, bool debug) {
 			// to the left in the left column.
 			assert_gt(i - rfi_, 0);
 			pvHLeft  = vbuf_l + 2;
-			assert_lt(lastoff, maxSize_T);
+			assert_lt(lastoff, MAX_SIZE_T);
 			pvScore = d.profbuf_.ptr() + lastoff; // even elts = query profile, odd = gap barrier
 			for(size_t k = 0; k < iter; k++) {
 				vh = _mm_load_si128(pvHLeft);
@@ -885,7 +885,7 @@ TAlScore SwAligner::alignGatherLoc8(int& flag, bool debug) {
 		// allow matches in the right column to override matches above and
 		// to the left in the left column.
 		pvHLeft  = vbuf_r + 2;
-		assert_lt(lastoff, maxSize_T);
+		assert_lt(lastoff, MAX_SIZE_T);
 		pvScore = d.profbuf_.ptr() + lastoff; // even elts = query profile, odd = gap barrier
 		for(size_t k = 0; k < iter; k++) {
 			vh = _mm_load_si128(pvHLeft);
