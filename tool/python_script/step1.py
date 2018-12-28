@@ -34,8 +34,11 @@ if os.path.isdir(data_path) == False:
 if os.path.exists(IGC_reference_database) == False:
     print "ERROR - The path of IGC reference database is invalid: " + IGC_reference_database 
     sys.exit()
-if len(user_provided_index) != 0 and os.path.exists(user_provided_index) == False:
-    print "ERROR - The path of Iindex folder is invalid: " + user_provided_index 
+if os.path.isdir(IGC_reference_database) == True:
+    print "ERROR - The path of IGC reference should be file instead of directory: " + IGC_reference_database 
+    sys.exit()
+if len(user_provided_index) != 0 and os.path.isdir(user_provided_index) == False:
+    print "ERROR - The path of Index folder is invalid: " + user_provided_index 
     sys.exit()
 if os.path.isdir(output_path_intermediate) == False:
     print "ERROR - The path of alignment result directory is invalid: " + output_path_intermediate
@@ -58,7 +61,7 @@ print "The catalog output directory is " + output_path_catalog
 DNA_outputName = ""
 RNA_outputName = ""
 Bowtie2_dir = tool_path + "/bowtie2"
-if os.path.isdir(Bowtie2_dir) == False or os.path.exists(Bowtie2_dir + "/bowtie2-build-s") == False or os.path.exists(Bowtie2_dir + "/bowtie2") == False:
+if os.path.isdir(Bowtie2_dir) == False or os.path.exists(Bowtie2_dir + "/bowtie2-build") == False or os.path.exists(Bowtie2_dir + "/bowtie2") == False:
     print "ERROR - can't detect bowtie2" 
     sys.exit()
 Bedtools_dir = tool_path + "/bedtools/bin"
@@ -74,22 +77,25 @@ if len(user_provided_index) == 0:
 else:
     build_index = user_provided_index
 
-# define gene mapping pipeline
-def pipeline(build_index, provideDB_path, DNA_dir, RNA_dir, DNA_first, DNA_second, RNA_first, RNA_second, output_path, DNA_outputName, RNA_outputName):
-    
+# define build index pipeline
+def buildIndex(build_index, provideDB_path):
     # build index for the reference database
     if os.path.isdir( build_index ) == True: # if build_index folder exists
         if len(os.listdir(build_index)) == 0: # if it is empty
             build_index = build_index + "/IGC_ref"
-            os.system(Bowtie2_dir + "/bowtie2-build-s --large-index " + provideDB_path + " " + build_index) #  build index
+            os.system(Bowtie2_dir + "/bowtie2-build " + provideDB_path + " " + build_index) #  build index
         else: # if it is not empty, get the prefix
             index_files = sorted(os.listdir(build_index))
             prefix = index_files[0][:-7]
             build_index = build_index + "/" + prefix
     else:
+        os.system("mkdir " + build_index)
         build_index = build_index + "/IGC_ref"
-        os.system(Bowtie2_dir + "/bowtie2-build-s --large-index " + provideDB_path + " " + build_index) #  build index
-    
+        os.system(Bowtie2_dir + "/bowtie2-build " + provideDB_path + " " + build_index) #  build index
+    return build_index
+
+# define gene mapping pipeline
+def pipeline(build_index, provideDB_path, DNA_dir, RNA_dir, DNA_first, DNA_second, RNA_first, RNA_second, output_path, DNA_outputName, RNA_outputName):    
     # metagenome mapping
     # bowtie2
     if DNA_second == "false": # single end
@@ -122,7 +128,15 @@ def pipeline(build_index, provideDB_path, DNA_dir, RNA_dir, DNA_first, DNA_secon
     # 10 columns
     os.system("awk '{if ($3 + 0 != 0 && $6 + 0 != 0 && $9 + 0 != 0) print $1 \"\t\" $2 \"\t\" $3 \"\t\" $4 \"\t\" $5 \"\t\" $6 \"\t\" $7 \"\t\" $8 \"\t\" $9 \"\t\" (($7 / $3) / ($4 / $3)) }' " + output_path + "/" + DNA_outputName + "_" + RNA_outputName + ".coverage > " + output_path + "/" + DNA_outputName + "_" + RNA_outputName + ".integrative_coverage")
     
+    # delete useless file
     os.system("rm -rf " + output_path + "/" + DNA_outputName + "_" + RNA_outputName + ".coverage" )
+
+    # put integrative coverage file to the cat folder
+    os.system("mv " + output_path + "/" + DNA_outputName + "_" + RNA_outputName + ".integrative_coverage " + output_path_catalog + "/" + fileName + ".cat")
+
+
+# build index first
+build_index = buildIndex(build_index, IGC_reference_database)
 
 # detecting datasets directory and processing them
 fileNames = os.listdir(data_path)
@@ -169,8 +183,3 @@ for fileName in fileNames:
 
 for one_process in processes:
     one_process.join()
-
-# extract fhe integrative coverage file and put it in the catalog folder
-for fileName in os.listdir(output_path_intermediate):
-    if os.path.exists(output_path_intermediate + "/" + fileName + "/" + DNA_outputName + "_" + RNA_outputName + ".integrative_coverage") == True:
-        os.system("mv " + output_path_intermediate + "/" + fileName + "/" + DNA_outputName + "_" + RNA_outputName + ".integrative_coverage " + output_path_catalog + "/" + fileName + ".cat")
