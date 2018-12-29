@@ -26,6 +26,11 @@ def mergeUserCatalog():
             if os.path.isdir(output_path) ==False:
                 os.system("mkdir " + output_path)
         count = count + 1
+    
+    # check validity of matrix folder
+    if os.path.isdir(matrix_folder) == False:
+        print "ERROR - the path of matrix folder is invalid: " + matrix_folder
+        sys.exit()
 
     # get 3 matrices names
     fileNames = os.listdir(matrix_folder)
@@ -63,13 +68,6 @@ def mergeUserCatalog():
             print "ERROR - Catalog directory is empty: " + catalog_path
             sys.exit()
 
-    if os.path.isdir(matrix_folder) == False:
-        print "ERROR - the path of matrix folder is invalid: " + matrix_folder
-        sys.exit()
-    if os.path.isdir(matrix_folder) == False:
-        print "ERROR - the path of matrix folder is invalid: " + matrix_folder
-        sys.exit()
-
     # print out arguments for users
     print "The path of matrix folder is " + matrix_folder
     print "The path of new catalogs is " + catalog_new
@@ -92,11 +90,11 @@ def mergeUserCatalog():
     count = 0
     while count < len(DNA_data):
         if count == 0:
-            DNA_dictionary["sampleList"] = DNA_data[count][:-1] + "\t"
+            DNA_dictionary["sampleList"] = DNA_data[count].rstrip() + "\t"
             count = count + 1
         else:
             geneName = DNA_data[count].split('\t')[0]
-            DNA_dictionary[geneName] = DNA_data[count][:-1] + "\t"
+            DNA_dictionary[geneName] = DNA_data[count].rstrip() + "\t"
             count = count + 1
     print "number of gene in DNA " + str(len(DNA_dictionary))
     # RNA
@@ -105,11 +103,11 @@ def mergeUserCatalog():
     count = 0
     while count < len(RNA_data):
         if count == 0:
-            RNA_dictionary["sampleList"] = RNA_data[count][:-1] + "\t"
+            RNA_dictionary["sampleList"] = RNA_data[count].rstrip() + "\t"
             count = count + 1
         else:
             geneName = RNA_data[count].split('\t')[0]
-            RNA_dictionary[geneName] = RNA_data[count][:-1] + "\t"
+            RNA_dictionary[geneName] = RNA_data[count].rstrip()+ "\t"
             count = count + 1
     print "number of gene in RNA " + str(len(RNA_dictionary))
     # RDLN
@@ -118,26 +116,30 @@ def mergeUserCatalog():
     count = 0
     while count < len(RDLN_data):
         if count == 0:
-            RNA_DNA_dictionary["sampleList"] = RDLN_data[count][:-1] + "\t"
+            RNA_DNA_dictionary["sampleList"] = RDLN_data[count].rstrip() + "\t"
             count = count + 1
         else:
             geneName = RDLN_data[count].split('\t')[0]
-            RNA_DNA_dictionary[geneName] = RDLN_data[count][:-1] + "\t"
+            RNA_DNA_dictionary[geneName] = RDLN_data[count].rstrip() + "\t"
             count = count + 1
     print "number of gene in RDRPK " + str(len(RNA_DNA_dictionary))
 
-
     # getting data from new catalog
     sample_count = 0
+    full_path_fileNames = sorted(full_path_fileNames)
+    origin_length = len(DNA_dictionary["sampleList"].split('\t'))
     for fileName in full_path_fileNames:
         inFile = open(fileName)
         data = inFile.readlines()
+        DNA_dictionary["sampleList"] = DNA_dictionary["sampleList"] + os.path.basename(fileName)[:-4] + "\t"
+        RNA_dictionary["sampleList"] = RNA_dictionary["sampleList"] + os.path.basename(fileName)[:-4] + "\t"
+        RNA_DNA_dictionary["sampleList"] = RNA_DNA_dictionary["sampleList"] + os.path.basename(fileName)[:-4] + "\t"
         for line in data:
             geneName = line.split('\t')[0]
-            DNA_readCounts = int(line.split('\t')[3])
-            RNA_readCounts = int(line.split('\t')[6])
-            RDLN_readCounts = float(line.split('\t')[9])
-            if geneName in DNA_dictionary and geneName in RNA_dictionary and geneName in RNA_DNA_dictionary: # in gene in the matrix, append the readcounts
+            DNA_readCounts = line.split('\t')[3].rstrip()
+            RNA_readCounts = line.split('\t')[6].rstrip()
+            RDLN_readCounts = line.split('\t')[9].rstrip()
+            if geneName in DNA_dictionary and geneName in RNA_dictionary and geneName in RNA_DNA_dictionary: # if gene in the matrix, append the readcounts
                 DNA_dictionary[geneName] = DNA_dictionary[geneName] + str(DNA_readCounts) + "\t"
                 RNA_dictionary[geneName] = RNA_dictionary[geneName] + str(RNA_readCounts) + "\t"
                 RNA_DNA_dictionary[geneName] = RNA_DNA_dictionary[geneName] + str(RDLN_readCounts) + "\t"
@@ -146,27 +148,42 @@ def mergeUserCatalog():
                 RNA_dictionary[geneName] = "0\t" * sample_count + str(RNA_readCounts) + "\t"
                 RNA_DNA_dictionary[geneName] = "0\t" * sample_count + str(RDLN_readCounts) + "\t"
         sample_count = sample_count + 1
+        
+        # append 0 to the gene not mapped
+        # fix DNA matrix
+        for key in DNA_dictionary:
+            if len(DNA_dictionary[key].split('\t')) < origin_length + sample_count:
+                DNA_dictionary[key] = DNA_dictionary[key] + "0" + '\t'
+        # fix RNA matrix
+        for key in RNA_dictionary:
+            if len(RNA_dictionary[key].split('\t')) < origin_length + sample_count:
+                RNA_dictionary[key] = RNA_dictionary[key] + "0" + '\t'
+        # fix RNA/DNA matrix
+        for key in RNA_DNA_dictionary:
+            if len(RNA_DNA_dictionary[key].split('\t')) < origin_length + sample_count:
+                RNA_DNA_dictionary[key] = RNA_DNA_dictionary[key] + "0" + '\t'
+        
 
     # writing file
     # DNA
-    outFile_DNA = open(output_path + "/" + "DNA_" + str(735 + sample_count) + "_hGEM.txt", "w")
+    outFile_DNA = open(output_path + "/" + "DNA_" + str(len(DNA_dictionary["sampleList"].split('\t')) - 2 ) + "_hGEM.txt", "w")
     outFile_DNA.write(DNA_dictionary["sampleList"] + "\n")
     for key in DNA_dictionary:
         if key != "sampleList":
             outFile_DNA.write(DNA_dictionary[key] + "\n")
 
     # RNA
-    outFile_RNA = open(output_path + "/" + "RNA_" + str(735 + sample_count) + "_hGEM.txt", "w")
+    outFile_RNA = open(output_path + "/" + "RNA_" + str(len(RNA_dictionary["sampleList"].split('\t')) - 2 ) + "_hGEM.txt", "w")
     outFile_RNA.write(RNA_dictionary["sampleList"] + "\n")
     for key in RNA_dictionary:
         if key != "sampleList":
             outFile_RNA.write(RNA_dictionary[key] + "\n")
     # RdLN
-    outFile_RDLN = open(output_path + "/" + "RDRPK_" + str(735 + sample_count) + "_hGEM.txt", "w")
+    outFile_RDLN = open(output_path + "/" + "RDRPK_" + str(len(RNA_DNA_dictionary["sampleList"].split('\t')) - 2 ) + "_hGEM.txt", "w")
     outFile_RDLN.write(RNA_DNA_dictionary["sampleList"] + "\n")
     for key in RNA_DNA_dictionary:
         if key != "sampleList":
-            outFile_DNA.write(RNA_DNA_dictionary[key] + "\n")
+            outFile_RDLN.write(RNA_DNA_dictionary[key] + "\n")
 def onlyUserCatalog():
     # variable definiton
     count = 0
@@ -216,6 +233,7 @@ def onlyUserCatalog():
     RNA_dictionary["geneName"] = "gene_name"
     RNA_DNA_dictionary = {}
     RNA_DNA_dictionary["geneName"] = "gene_name"
+    full_path_fileNames = sorted(full_path_fileNames)
     for fileName in full_path_fileNames:
         inFile = open(fileName)
         data = inFile.readlines()
@@ -225,10 +243,10 @@ def onlyUserCatalog():
         RNA_DNA_dictionary["geneName"] = RNA_DNA_dictionary["geneName"] + "\t" + os.path.basename(fileName)[:-4]
         # append the exact value
         for line in data:
-            gene_name = line.split('\t')[0]
-            dna_readCount = line.split('\t')[3]
-            rna_readCount = line.split('\t')[6]
-            rna_dna_readCount = line.split('\t')[9]
+            gene_name = line.split('\t')[0].rstrip()
+            dna_readCount = line.split('\t')[3].rstrip()
+            rna_readCount = line.split('\t')[6].rstrip()
+            rna_dna_readCount = line.split('\t')[9].rstrip()
             # DNA read counts
             if gene_name not in DNA_dictionary:
                 DNA_dictionary[gene_name] = gene_name + "\t0" * count_sample
@@ -278,11 +296,8 @@ def onlyUserCatalog():
             outFile_RNA_DNA.write(RNA_DNA_dictionary[key] + "\n")
 
 
-arguments = ""
-for x in sys.argv:
-    arguments = arguments + x + " "
 
-if arguments.find("-m") != -1: # user provide 3 matrix folder path
+if "-m" in sys.argv: # user provide 3 matrix folder path
     mergeUserCatalog()
 else:                          # user want to make new matrices
     onlyUserCatalog()
