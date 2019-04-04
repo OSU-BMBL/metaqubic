@@ -4,7 +4,7 @@ Metagenomic and metatranscriptomic analyses can provide an abundance of informat
 
 ## A detailed tutorial with example codes can be found in [wiki](https://github.com/OSU-BMBL/metaqubic/wiki). 
 
-### 1.2 Installation
+### Installation
 The source code of MetaQUBIC is freely available at: https://github.com/OSU-BMBL/metaqubic. 
 
 To install the MetaQUBIC, first, download the zip file manually from github, or use the code below in Unix:
@@ -25,7 +25,7 @@ sh setup.sh
 Now the MetaQUBIC is successfully installed and ready for use. \
 <b>Note:</b> the installation of scipy package may ask you to agree with a user agreement. Simply click Enter button to continue.
 
-### 2 Data download
+### Data accessibility 
 To run the tutorial, a zip package can be downloaded [HERE]() (), or use wget code in Linux system:
 ```{r,engine='bash',eval=FALSE}
 wget http://bmbl.sdstate.edu/metaqubic/meta_data.gz
