@@ -39,9 +39,11 @@ Unzip the package to obtain data including:
 (4) one sample of paired DNA and RNA fastq files
 
 Extra data can be downloaded by clicking the links below:
-* [IGC_index.gz](http://bmbl.sdstate.edu/metaqubic/IGC_index/)  See usage in 4.1 Execution-1 (using index files)
-* [RDRPK_735_hGEM_filt.txt](http://bmbl.sdstate.edu/metaqubic/RDRPK_735_hGEM_filt.txt/)  See usage in 4.3 Execution-3 (starting from biclustering)
+* [IGC_index.gz](http://bmbl.sdstate.edu/metaqubic/IGC_index/)(15.4GB)  See usage in 4.1 Execution-1 (using index files)
+* [RDRPK_735_hGEM_filt.txt](http://bmbl.sdstate.edu/metaqubic/RDRPK_735_hGEM_filt.txt/)(2.7GB)  See usage in 4.3 Execution-3 (starting from biclustering)
 * [735_sam.gz]()  See usage in 4.5 Execution-5 (link to HUManN2)
 * [bicluster.blocks]()  Biclustering results mentioned in our paper.
 * [735 sample catlogs](http://bmbl.sdstate.edu/metaqubic/735_catalogs/)    .cat files
+
+The raw fastq files of 735 samples can be downloaded from [NCBI SRA](https://www.ncbi.nlm.nih.gov/sra/) using the respecitve ID [<b>here</b>](http://bmbl.sdstate.edu/metaqubic/Tutorial/735_fastq_SRA_ID.txt)(52KB).
 
