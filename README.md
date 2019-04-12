@@ -28,7 +28,7 @@ Now the MetaQUBIC is successfully installed and ready for use. \
 <b>Note:</b> the installation of scipy package may ask you to agree with a user agreement. Simply click Enter button to continue.
 
 ### Data accessibility 
-To run the tutorial, a zip package can be downloaded [HERE](http://bmbl.sdstate.edu/metaqubic/meta_data.gz), or use wget code in Linux system:
+To run the tutorial, download the Meta_data package incuding the essential files [HERE](http://bmbl.sdstate.edu/metaqubic/meta_data.gz), or use wget code in Linux system:
 ```{r,engine='bash',eval=FALSE}
 wget http://bmbl.sdstate.edu/metaqubic/meta_data.gz
 ```
@@ -39,11 +39,10 @@ Unzip the package to obtain data including:
 (4) one sample of paired DNA and RNA fastq files
 
 Extra data can be downloaded by clicking the links below:
-* [IGC_index.gz](http://bmbl.sdstate.edu/metaqubic/IGC_index/)(15.4GB)  See usage in 4.1 Execution-1 (using index files)
-* [RDRPK_735_hGEM_filt.txt](http://bmbl.sdstate.edu/metaqubic/RDRPK_735_hGEM_filt.txt/)(2.7GB)  See usage in 4.3 Execution-3 (starting from biclustering)
-* [735_sam.gz]()  See usage in 4.5 Execution-5 (link to HUManN2)
-* [bicluster.blocks]()  Biclustering results mentioned in our paper.
-* [735 sample catlogs](http://bmbl.sdstate.edu/metaqubic/735_catalogs/)    .cat files
+* [IGC_index.tar.gz](http://bmbl.sdstate.edu/metaqubic/IGC_index.tar.gz/)(10GB)  Reference index files resulted from bowtie2. See usage in 4.1 Execution-1 (using index files)
+* [RDRPK_735_hGEM_filt.txt](http://bmbl.sdstate.edu/metaqubic/RDRPK_735_hGEM_filt.txt.tar.gz/)(160MB, unzip to 2.7GB)  The filtered hGEM matrix. See usage in 4.3 Execution-3 (starting from biclustering)
+* [bicluster.blocks](http://bmbl.sdstate.edu/metaqubic/biclusters.blocks.tar.gz)  Biclustering results resulted in our paper.
+* [735 sample catlogs](http://bmbl.sdstate.edu/metaqubic/735_catalogs.tar.gz)(1GB)    All 735 catalog files.
 
-The raw fastq files of 735 samples can be downloaded from [NCBI SRA](https://www.ncbi.nlm.nih.gov/sra/) using the respecitve ID [<b>here</b>](http://bmbl.sdstate.edu/metaqubic/Tutorial/735_fastq_SRA_ID.txt)(52KB).
+The raw fastq files of 735 samples can be downloaded from [NCBI SRA](https://www.ncbi.nlm.nih.gov/sra/) using the respecitve ID [<b>here</b>](http://bmbl.sdstate.edu/metaqubic/735_fastq_SRA_ID.txt)(52KB).
 
