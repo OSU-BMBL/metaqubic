@@ -39,8 +39,8 @@ Unzip the package to obtain data including:
 (4) one sample of paired DNA and RNA fastq files
 
 Extra data can be downloaded by clicking the links below:
-* [IGC_index.tar.gz](http://bmbl.sdstate.edu/metaqubic/IGC_index.tar.gz/)(10GB)  Reference index files resulted from bowtie2. See usage in 4.1 Execution-1 (using index files)
-* [RDRPK_735_hGEM_filt.txt](http://bmbl.sdstate.edu/metaqubic/RDRPK_735_hGEM_filt.txt.tar.gz/)(160MB, unzip to 2.7GB)  The filtered hGEM matrix. See usage in 4.3 Execution-3 (starting from biclustering)
+* [IGC_index.tar.gz](http://bmbl.sdstate.edu/metaqubic/IGC_index.tar.gz)(10GB)  Reference index files resulted from bowtie2. See usage in 4.1 Execution-1 (using index files)
+* [RDRPK_735_hGEM_filt.txt](http://bmbl.sdstate.edu/metaqubic/RDRPK_735_hGEM_filt.txt.tar.gz)(160MB, unzip to 2.7GB)  The filtered hGEM matrix. See usage in 4.3 Execution-3 (starting from biclustering)
 * [bicluster.blocks](http://bmbl.sdstate.edu/metaqubic/biclusters.blocks.tar.gz)  Biclustering results resulted in our paper.
 * [735 sample catlogs](http://bmbl.sdstate.edu/metaqubic/735_catalogs.tar.gz)(1GB)    All 735 catalog files.
 
