@@ -23,8 +23,6 @@ def mergeUserCatalog():
             catalog_new = sys.argv[count + 1]
         elif  sys.argv[count] == '-o':
             output_path = sys.argv[count + 1]
-            if os.path.isdir(output_path) ==False:
-                os.system("mkdir " + output_path)
         count = count + 1
     
     # check validity of matrix folder
@@ -67,6 +65,11 @@ def mergeUserCatalog():
         if len(fileNames_new) == 0: # if no file under the folder
             print "ERROR - Catalog directory is empty: " + catalog_path
             sys.exit()
+    
+    # check output path
+    if os.path.isdir(output_path) == False:
+        print "ERROR - output path is invalid: " + output_path
+        sys.exit()
 
     # print out arguments for users
     print "The path of matrix folder is " + matrix_folder
@@ -278,22 +281,22 @@ def onlyUserCatalog():
     # write matrices
     # DNA
     outFile_DNA = open(output_path + "/" + "DNA_hGEM.txt", "w")
-    outFile_DNA.write(DNA_dictionary["geneName"] + "\n")
+    outFile_DNA.write(DNA_dictionary["geneName"][:-1] + "\n")
     for key in DNA_dictionary:
         if key != "geneName":
-            outFile_DNA.write(DNA_dictionary[key] + "\n")
+            outFile_DNA.write(DNA_dictionary[key][:-1] + "\n")
     # RNA
     outFile_RNA = open(output_path + "/" + "RNA_hGEM.txt", "w")
-    outFile_RNA.write(RNA_dictionary["geneName"] + "\n")
+    outFile_RNA.write(RNA_dictionary["geneName"][:-1] + "\n")
     for key in RNA_dictionary:
         if key != "geneName":
-            outFile_RNA.write(RNA_dictionary[key] + "\n")
+            outFile_RNA.write(RNA_dictionary[key][:-1] + "\n")
     # RNA/DNA
     outFile_RNA_DNA = open(output_path + "/" + "RDRPK_hGEM.txt", "w")
-    outFile_RNA_DNA.write(RNA_DNA_dictionary["geneName"] + "\n")
+    outFile_RNA_DNA.write(RNA_DNA_dictionary["geneName"][:-1] + "\n")
     for key in RNA_DNA_dictionary:
         if key != "geneName":
-            outFile_RNA_DNA.write(RNA_DNA_dictionary[key] + "\n")
+            outFile_RNA_DNA.write(RNA_DNA_dictionary[key][:-1] + "\n")
 
 
 

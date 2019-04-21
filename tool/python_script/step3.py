@@ -7,7 +7,7 @@ IGC_reference_database = ""
 dna_matrix_path = ""
 rna_matrix_path = ""
 rna_dna_matrix_path = ""
-matrix_folder
+matrix_folder = 0
 output_path = ""
 cutoff_value = 1.0
 sample_value = 1
@@ -35,11 +35,11 @@ if len(fileNames) != 3:
 else:
     for fileName in fileNames:
         if fileName.find("DNA") != -1:
-            dna_matrix_path = fileName
+            dna_matrix_path = matrix_folder + "/" + fileName
         elif fileName.find("RNA") != -1:
-            rna_matrix_path = fileName
+            rna_matrix_path = matrix_folder + "/" + fileName
         elif fileName.find("RDRPK") != -1:
-            rna_dna_matrix_path = fileName
+            rna_dna_matrix_path = matrix_folder + "/" + fileName
         else:
             print "ERROR - can't recognize this file: " + fileName
 
@@ -257,23 +257,29 @@ TPM_RNA_matrix_data = TPM_RNA_matrix.readlines()
 DNA_gene_list = []
 for line in TPM_DNA_matrix_data[1:]:
     DNA_gene_list.append(line.split('\t')[0])
+print "number of DNA gene: " + str(len(DNA_gene_list))
 
 # get RNA gene list
 RNA_gene_list = []
 for line in TPM_RNA_matrix_data[1:]:
     RNA_gene_list.append(line.split('\t')[0])
+print "number of RNA gene: " + str(len(RNA_gene_list))
 
 # get mutual gene list
-mutual_gene_list = set(DNA_gene_list).intersection(RNA_gene_list)
+mutual_gene_list = list(set(DNA_gene_list).intersection(RNA_gene_list))
+print "number of mutual gene: " + str(len(mutual_gene_list))
 
 # output filtered RNA/DNA matrix
 RNA_DNA_matrix_file = open(rna_dna_matrix_path)
 RNA_DNA_matrix_data = RNA_DNA_matrix_file.readlines()
 RNA_DNA_matrix_outFile = open(output_path + "/RDRPK_hGEM_filt.txt", "w")
 RNA_DNA_matrix_outFile.write(RNA_DNA_matrix_data[0])
+count = 0
 for line in RNA_DNA_matrix_data[1:]:
-    if line.split('\t')[0] in mutual_gene_dictionary:
+    if line.split('\t')[0] in mutual_gene_list:
         RNA_DNA_matrix_outFile.write(line)
+        print "final count: " + str(count)
+
 
 
 # write summary file
