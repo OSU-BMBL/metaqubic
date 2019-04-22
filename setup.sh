@@ -10,8 +10,8 @@ yes
 no
 no
 ANSWERS
-/python/bin/pip install --upgrade pip
-/python/bin/pip install rpy2==2.8.6
+./python/bin/pip install --upgrade pip
+./python/bin/conda install -c conda-forge rpy2 
 cd ..
 
 # install bedtools
