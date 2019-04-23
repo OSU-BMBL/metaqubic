@@ -138,7 +138,7 @@ def mergeUserCatalog():
         RNA_dictionary["sampleList"] = RNA_dictionary["sampleList"] + os.path.basename(fileName)[:-4] + "\t"
         RNA_DNA_dictionary["sampleList"] = RNA_DNA_dictionary["sampleList"] + os.path.basename(fileName)[:-4] + "\t"
         for line in data:
-            geneName = line.split('\t')[0]
+            geneName = line.split('\t')[0].rstrip()
             DNA_readCounts = line.split('\t')[3].rstrip()
             RNA_readCounts = line.split('\t')[6].rstrip()
             RDLN_readCounts = line.split('\t')[9].rstrip()
@@ -147,9 +147,9 @@ def mergeUserCatalog():
                 RNA_dictionary[geneName] = RNA_dictionary[geneName] + str(RNA_readCounts) + "\t"
                 RNA_DNA_dictionary[geneName] = RNA_DNA_dictionary[geneName] + str(RDLN_readCounts) + "\t"
             else:   # if gene not in the matrix, make new line
-                DNA_dictionary[geneName] = "0\t" * sample_count + str(DNA_readCounts) + "\t"
-                RNA_dictionary[geneName] = "0\t" * sample_count + str(RNA_readCounts) + "\t"
-                RNA_DNA_dictionary[geneName] = "0\t" * sample_count + str(RDLN_readCounts) + "\t"
+                DNA_dictionary[geneName] = geneName + "\t" + "0\t" * (origin_length + sample_count) + str(DNA_readCounts) + "\t"
+                RNA_dictionary[geneName] = geneName + "\t" + "0\t" * (origin_length + sample_count) + str(RNA_readCounts) + "\t"
+                RNA_DNA_dictionary[geneName] = geneName + "\t" + "0\t" * (origin_length + sample_count) + str(RDLN_readCounts) + "\t"
         sample_count = sample_count + 1
         
         # append 0 to the gene not mapped
