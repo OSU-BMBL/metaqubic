@@ -281,22 +281,22 @@ def onlyUserCatalog():
     # write matrices
     # DNA
     outFile_DNA = open(output_path + "/" + "DNA_hGEM.txt", "w")
-    outFile_DNA.write(DNA_dictionary["geneName"][:-1] + "\n")
+    outFile_DNA.write(DNA_dictionary["geneName"] + "\n")
     for key in DNA_dictionary:
         if key != "geneName":
-            outFile_DNA.write(DNA_dictionary[key][:-1] + "\n")
+            outFile_DNA.write(DNA_dictionary[key] + "\n")
     # RNA
     outFile_RNA = open(output_path + "/" + "RNA_hGEM.txt", "w")
-    outFile_RNA.write(RNA_dictionary["geneName"][:-1] + "\n")
+    outFile_RNA.write(RNA_dictionary["geneName"] + "\n")
     for key in RNA_dictionary:
         if key != "geneName":
-            outFile_RNA.write(RNA_dictionary[key][:-1] + "\n")
+            outFile_RNA.write(RNA_dictionary[key] + "\n")
     # RNA/DNA
     outFile_RNA_DNA = open(output_path + "/" + "RDRPK_hGEM.txt", "w")
-    outFile_RNA_DNA.write(RNA_DNA_dictionary["geneName"][:-1] + "\n")
+    outFile_RNA_DNA.write(RNA_DNA_dictionary["geneName"] + "\n")
     for key in RNA_DNA_dictionary:
         if key != "geneName":
-            outFile_RNA_DNA.write(RNA_DNA_dictionary[key][:-1] + "\n")
+            outFile_RNA_DNA.write(RNA_DNA_dictionary[key] + "\n")
 
 
 
