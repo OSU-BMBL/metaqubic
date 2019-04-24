@@ -7,7 +7,7 @@ IGC_reference_database = ""
 dna_matrix_path = ""
 rna_matrix_path = ""
 rna_dna_matrix_path = ""
-matrix_folder = 0
+matrix_folder = ""
 output_path = ""
 cutoff_value = 1.0
 sample_value = 1
@@ -278,18 +278,17 @@ count = 0
 for line in RNA_DNA_matrix_data[1:]:
     if line.split('\t')[0] in mutual_gene_list:
         RNA_DNA_matrix_outFile.write(line)
-        print "final count: " + str(count)
 
 
 
 # write summary file
-outFile_summary = open(output_path + "/hGEM_filt.summary")
+outFile_summary = open(output_path + "/hGEM_filt.summary", "w")
 outFile_summary.write("DNA TPM filtering:\n")
-rate = float((DNA_matrix_length_before_filter - DNA_matrix_length_after_filter) / DNA_matrix_length_before_filter) * 100
-outFile_summary.write("Total: " + str(DNA_matrix_length_before_filter) + " genes\tRemoval: " + str(DNA_matrix_length_before_filter - DNA_matrix_length_after_filter) + " genes\tRemaining: " + str(DNA_matrix_length_after_filter) + "genes\tFilter_rate: " + str(rate) + "\n\n")
+rate = float((DNA_matrix_length_before_filter - DNA_matrix_length_after_filter) / float(DNA_matrix_length_before_filter)) * 100
+outFile_summary.write("Total: " + str(DNA_matrix_length_before_filter) + " genes\tRemoval: " + str(DNA_matrix_length_before_filter - DNA_matrix_length_after_filter) + " genes\tRemaining: " + str(DNA_matrix_length_after_filter) + " genes\tFilter_rate: " + str(rate) + "\n\n")
 outFile_summary.write("RNA TPM filtering:\n")
-rate = float((RNA_matrix_length_before_filter - RNA_matrix_length_after_filter) / RNA_matrix_length_before_filter) * 100
-outFile_summary.write("Total: " + str(RNA_matrix_length_before_filter) + " genes\tRemoval: " + str(RNA_matrix_length_before_filter - RNA_matrix_length_after_filter) + " genes\tRemaining: " + str(RNA_matrix_length_after_filter) + "genes\tFilter_rate: " + str(rate) + "\n\n")
+rate = float((RNA_matrix_length_before_filter - RNA_matrix_length_after_filter) / float(RNA_matrix_length_before_filter)) * 100
+outFile_summary.write("Total: " + str(RNA_matrix_length_before_filter) + " genes\tRemoval: " + str(RNA_matrix_length_before_filter - RNA_matrix_length_after_filter) + " genes\tRemaining: " + str(RNA_matrix_length_after_filter) + " genes\tFilter_rate: " + str(rate) + "\n\n")
 outFile_summary.write("DNA & RNA TPM intersection: " + str(len(mutual_gene_list)) + " genes\n\n")
-outFile_summary.write("RD-RPK hGEM: " + str(len(mutual_gene_list)) + " X " + str(len(RNA_DNA_matrix_data[1:])) + "samples\n")
+outFile_summary.write("RD-RPK hGEM: " + str(len(mutual_gene_list)) + " X " + str(len(RNA_DNA_matrix_data[0].split('\t')) - 1) + "samples\n")
 
