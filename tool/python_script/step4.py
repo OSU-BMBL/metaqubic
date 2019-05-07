@@ -43,7 +43,7 @@ print "The parameters that will pass to QUBIC is " + argument
 # run qubic for biclustering
 qubic_execute = tool_path + "/qubic/qubic -i "
 os.system(qubic_execute + rdln_matrix + argument)
-os.system("mv " + tool_path + "/qubic/" + os.path.basename(rdln_matrix) + ".blocks " + output_path)
+os.system("mv " +  rdln_matrix + ".blocks " + output_path)
 
 # ouptut genes and samples lists
 os.system("cd " + output_path + " for file in *blocks; do grep Conds $file |cut -d \':\' -f2 >\"condition.txt\"; done")
