@@ -35,7 +35,7 @@ int main(const int argc, const char ** argv)
         printf("step 3 (TPM normalizationa dn filtering) is processing.\n");
         step3(argc, &argv[2]);
     }
-    else if(strcmp(argv[2], "--biclustering") == 0)
+    else if(strcmp(argv[1], "--biclustering") == 0)
     {
         printf("step 4 (biclustering) is processing.\n");
         step4(argc, &argv[2]);
