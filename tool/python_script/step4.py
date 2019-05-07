@@ -46,5 +46,5 @@ os.system(qubic_execute + rdln_matrix + argument)
 os.system("mv " +  rdln_matrix + ".blocks " + output_path)
 
 # ouptut genes and samples lists
-os.system("cd " + output_path + " for file in *blocks; do grep Conds $file |cut -d \':\' -f2 >\"condition.txt\"; done")
-os.system("cd " + output_path + " for file in *blocks; do grep Genes $file |cut -d \':\' -f2 >\"gene.txt\"; done\"")
+# os.system("cd " + output_path + " for file in *blocks; do grep Conds $file |cut -d \':\' -f2 >\"condition.txt\"; done")
+# os.system("cd " + output_path + " for file in *blocks; do grep Genes $file |cut -d \':\' -f2 >\"gene.txt\"; done\"")
