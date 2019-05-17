@@ -1,4 +1,4 @@
-### 1.1 Environment
+## 1.1 Environment
 
 MetaQUBIC is an integrated C package requires a basic <b>UNIX/Linux environment</b>. The gcc compiler with <b>version 4.8.5 or higher</b> is required to be pririor installed. More details can be found <a href="https://gcc.gnu.org/wiki/InstallingGCC">here</a>. <b>Currently, MetaQUBIC does not support Mac or Windows system.</b>
 \
@@ -6,7 +6,7 @@ MetaQUBIC is an integrated C package requires a basic <b>UNIX/Linux environment<
 Our experimental test performed for mapping 735 datasets to the [IGC reference database](http://meta.genomics.cn/meta/dataTools) were proceeded on the [XSEDE](https://www.xsede.org) PSC cluster which used an overall RAM of **128GB**. Higher RAM showed less effect to the running time, while it is still required for larger dataset (more samples or genes) analysis to prevent memory overflow. 
 **Due to the large memory requirement, we recommend users run MetaQUBIC on a high-performance computer (HPC), such as XSEDE, rather than local computers.**
 
-### 1.2 Installation
+## 1.2 Installation
 The source code of MetaQUBIC is freely available at: https://github.com/OSU-BMBL/metaqubic. 
 
 To install the MetaQUBIC, first, download the zip file manually from github, or use the code below in Unix:
