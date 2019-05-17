@@ -184,7 +184,7 @@ three updated hGEM (DNA_hGEM.txt, RNA_hGEM.txt, RDRPK_hGEM.txt)
 \
 <i><b>Input:</i></b>
 \
-three updated hGEM (DNA_hGEM.txt, RNA_hGEM.txt, RDRPK_hGEM.txt)
+reference fasta file (IGC_ref.fa), three updated hGEM (DNA_hGEM.txt, RNA_hGEM.txt, RDRPK_hGEM.txt)
 \
 <i><b>Output:</i></b>
 \
@@ -192,7 +192,7 @@ three filtered hGEM (DNA_hGEM_filt.txt, RNA_hGEM_filt.txt, RDRPK_hGEM_filt.txt),
 \
 <i><b>Argument:</i></b>
 ```{r,engine='bash',eval=FALSE}
-./master/runmeta --filtering -i ./meta_data/results/hGEM/ -minTPM 1 -NominTPM 2 -o ./meta_data/results/hGEM_filt/
+./master/runmeta --filtering -i ./meta_data/data/ref/IGC_ref.fa -m ./meta_data/results/hGEM/  -minTPM 1 -NominTPM 2 -o ./meta_data/results/hGEM_filt/
 ```
 
 ### 3.3 Part 3 - Biclustering and enrichment analyses
