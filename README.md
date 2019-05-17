@@ -298,3 +298,8 @@ Several examples are shown below to help users better understand the files (inpu
 <center><img src="http://bmbl.sdstate.edu/metaqubic/Tutorial/Figure6.jpg" alt="The MetaQUBIC pipeline" width="100%"></center>
 
 *** 
+
+## Contact ##
+
+Any questions, problems, bugs are welcome and should be dumped to
+Qin Ma <Qin.Ma@osumc.edu>
