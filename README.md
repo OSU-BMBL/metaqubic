@@ -274,6 +274,7 @@ gene-bic list, sequence-bic list
 ```{r,engine='bash',eval=FALSE}
 ../master/runmeta --bicToSeq -i ./meta_data/results/enrich_out/enriched.blocks -s. Sample001 -o ./meta_data/results/HUManN2
 
+```
 
 Several examples are shown below to help users better understand the files (inputs and outputs) used or produced in MetaQUBIC.
 <b>Files using universal (or common) format:</b> fasta (or .fa), .fastq (or .fq), .sam (bowtie2 alignment output), .bam (converted from sam), .coverage (bedtools output), index files (bowtie2 reference indexing output)
