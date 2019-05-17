@@ -1,3 +1,4 @@
+# MetaQUBIC
 ## Environment
 
 MetaQUBIC is an integrated C package requires a basic <b>UNIX/Linux environment</b>. The gcc compiler with <b>version 4.8.5 or higher</b> is required to be pririor installed. More details can be found <a href="https://gcc.gnu.org/wiki/InstallingGCC">here</a>. <b>Currently, MetaQUBIC does not support Mac or Windows system.</b>
