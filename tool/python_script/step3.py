@@ -116,6 +116,8 @@ column = 0
 # convert DNA_matrix_data to the matrix
 while row < len(DNA_matrix_data):
     DNA_matrix_data[row] = DNA_matrix_data[row].split('\t')
+    if DNA_matrix_data[row][-1] == '\n' or DNA_matrix_data[row][-1] == '\t':
+        DNA_matrix_data[row] = DNA_matrix_data[row][0:-1]
     row = row + 1
 
 # start calculating TPM
@@ -185,6 +187,8 @@ column = 0
 # convert DNA_matrix_data to the matrix
 while row < len(RNA_matrix_data):
     RNA_matrix_data[row] = RNA_matrix_data[row].split('\t')
+    if RNA_matrix_data[row][-1] == '\n' or RNA_matrix_data[row][-1] == '\t':
+        RNA_matrix_data[row] = RNA_matrix_data[row][0:-1]
     row = row + 1
 
 # start calculating TPM
