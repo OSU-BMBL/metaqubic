@@ -209,7 +209,7 @@ biclusters (.blocks)
 \
 <i><b>Argument:</i></b>
 ```{r,engine='bash',eval=FALSE}
-./master/runmeta --biclustering -i ./meta_data/results/hGEM_filt/ -o ./meta_data/results/bic/ --QUBIC -c 1 -f 0.8 -o 100 
+./master/runmeta --biclustering -i ./meta_data/results/hGEM_filt/RDRPK_hGEM_filt.txt -o ./meta_data/results/bic/ --QUBIC -c 1 -f 0.8 -o 100 
 ```
 <b>Part 3.2</b>\
 <i><b>functional enrichment:</i></b>
@@ -224,7 +224,7 @@ enriched blocks file (.blocks), summary file (hGEM_enrichment.summary)
 \
 <i><b>Argument:</i></b>
 ```{r,engine='bash',eval=FALSE}
-./master/runmeta --enrichment -i ./meta_data/results/bic -g ./meta_data/data/annotation/KEGG_ann.txt -o ./meta_data/results/enrich_out/
+./master/runmeta --enrichment -i ./meta_data/results/bic/RDRPK_735_hGEM.txt.blocks -g ./meta_data/data/annotation/KEGG_ann.txt -o ./meta_data/results/enrich_out/
 ```
 Note: the conditional annotations have not been provided by the author, thus, we omit the conditional enrichment here. 
 
