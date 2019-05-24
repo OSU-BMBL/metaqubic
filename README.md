@@ -170,7 +170,7 @@ sam file (Sample001_DNA.sam,Sample001_RNA.sam), bam file (Sample001_DNA.bam, Sam
 \
 <i><b>Argument:</i></b>
 ```{r,engine='bash',eval=FALSE}
-./master/runmeta --mapping -s ./meta_data/data/samples/ -ref ./meta_data/data/ref/IGC_ref.fa -o1 ./meta_data/results/align_out/ -o2 ./meta_data/results/cat/
+./metaqubic-master/runmeta --mapping -s ./meta_data/data/samples/ -ref ./meta_data/data/ref/IGC_ref.fa -o1 ./meta_data/results/align_out/ -o2 ./meta_data/results/cat/
 ```
 
 
@@ -188,7 +188,7 @@ three updated hGEM (DNA_hGEM.txt, RNA_hGEM.txt, RDRPK_hGEM.txt)
 \
 <i><b>Argument:</i></b>
 ```{r,engine='bash',eval=FALSE}
-./master/runmeta --CatToMat -i ./meta_data/results/cat/ -m ./meta_data/data/735_hGEM/ -o ./meta_data/results/hGEM/
+./metaqubic-master/runmeta --CatToMat -i ./meta_data/results/cat/ -m ./meta_data/data/735_hGEM/ -o ./meta_data/results/hGEM/
 ```
 <b>Part 2.2</b>\
 <i><b>gene normalization and filtering:</i></b>
@@ -203,7 +203,7 @@ three filtered hGEM (DNA_hGEM_filt.txt, RNA_hGEM_filt.txt, RDRPK_hGEM_filt.txt),
 \
 <i><b>Argument:</i></b>
 ```{r,engine='bash',eval=FALSE}
-./master/runmeta --filtering -i ./meta_data/data/ref/IGC_ref.fa -m ./meta_data/results/hGEM/  -minTPM 1 -NominTPM 2 -o ./meta_data/results/hGEM_filt/
+./metaqubic-master/runmeta --filtering -i ./meta_data/data/ref/IGC_ref.fa -m ./meta_data/results/hGEM/  -minTPM 1 -NominTPM 2 -o ./meta_data/results/hGEM_filt/
 ```
 
 ### 3.3 Part 3 - Biclustering and enrichment analyses
@@ -220,7 +220,7 @@ biclusters (.blocks)
 \
 <i><b>Argument:</i></b>
 ```{r,engine='bash',eval=FALSE}
-./master/runmeta --biclustering -i ./meta_data/results/hGEM_filt/RDRPK_hGEM_filt.txt -o ./meta_data/results/bic/ --QUBIC -c 1 -f 0.8 -o 100 
+./metaqubic-master/runmeta --biclustering -i ./meta_data/results/hGEM_filt/RDRPK_hGEM_filt.txt -o ./meta_data/results/bic/ --QUBIC -c 1 -f 0.8 -o 100 
 ```
 <b>Part 3.2</b>\
 <i><b>functional enrichment:</i></b>
@@ -235,7 +235,7 @@ enriched blocks file (.blocks), summary file (hGEM_enrichment.summary)
 \
 <i><b>Argument:</i></b>
 ```{r,engine='bash',eval=FALSE}
-./master/runmeta --enrichment -i ./meta_data/results/bic/RDRPK_735_hGEM.txt.blocks -g ./meta_data/data/annotation/KEGG_ann.txt -o ./meta_data/results/enrich_out/
+./metaqubic-master/runmeta --enrichment -i ./meta_data/results/bic/RDRPK_735_hGEM.txt.blocks -g ./meta_data/data/annotation/KEGG_ann.txt -o ./meta_data/results/enrich_out/
 ```
 Note: the conditional annotations have not been provided by the author, thus, we omit the conditional enrichment here. 
 
@@ -257,7 +257,7 @@ MetaQUBIC allows the user to add new samples directly to the three 735_sample_hG
 \
 To generate new matrix, turn off the -m flag in --CatToMat command:
 ```{r,engine='bash',eval=FALSE}
-./master/runmeta --CatToMat -i ./meta_data/results/cat/ -o ./meta_data/results/hGEM/
+./metaqubic-master/runmeta --CatToMat -i ./meta_data/results/cat/ -o ./meta_data/results/hGEM/
 ```
 
 
