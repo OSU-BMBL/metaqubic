@@ -20,7 +20,7 @@ Our experimental test performed for mapping 735 datasets to the [IGC reference d
 
 # Usage
 
-## Installation
+## 1. Installation
 The source code of MetaQUBIC is freely available at: https://github.com/OSU-BMBL/metaqubic. 
 
 To install the MetaQUBIC, first, download the zip file manually from github, or use the code below in Unix:
@@ -43,7 +43,7 @@ Now the MetaQUBIC is successfully installed and ready for use. \
 
 ***
 
-
+### 2. Data preparation
 1. To run the tutorial, first download the [meta_data package HERE](http://bmbl.sdstate.edu/metaqubic/meta_data.gz) (3.7GB), or use wget code in Linux system:
 
 ```{r,engine='bash',eval=FALSE}
@@ -140,7 +140,7 @@ The raw fastq files of 735 samples can be downloaded from [NCBI SRA](https://www
 
 ***  
 
-
+## 3. General Pipeline
 The general pipeline of MetaQUBIC includes three parts (five codes) to process the raw sample fastq files and results in a functional enriched blocks file contains bicluster information.\
 Five more advanced executions can be reached in [4. Advance executions] section in user's preferance.
 
@@ -241,6 +241,7 @@ Note: the conditional annotations have not been provided by the author, thus, we
 
 ***
 
+## 4. Advanced executions
 We also offer several executions to ease the way to use MetaQUBIC.
 
 ### 4.1 Execution-1 (using index files)
