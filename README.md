@@ -135,8 +135,9 @@ Extra data can be downloaded by clicking the links below:
 * [bicluster.blocks](http://bmbl.sdstate.edu/metaqubic/biclusters.blocks.tar.gz)  Biclustering results resulted in our paper.
 * [735 sample catlogs](http://bmbl.sdstate.edu/metaqubic/735_catalogs.tar.gz)(1GB)    All 735 catalog files.
 
-The raw fastq files of 735 samples can be downloaded from [NCBI SRA](https://www.ncbi.nlm.nih.gov/sra/) using the respecitve ID [<b>here</b>](http://bmbl.sdstate.edu/metaqubic/735_fastq_SRA_ID.txt)(52KB).
-4. The raw fastq files of 735 samples can be downloaded from [NCBI SRA](https://www.ncbi.nlm.nih.gov/sra/) using the respecitve ID <a href="http://bmbl.sdstate.edu/metaqubic/Tutorial/735_fastq_SRA_ID.txt"><b>here</b></a>.
+4. In total, 2598 samples were included in the original [Bioproject](https://www.ncbi.nlm.nih.gov/bioproject/PRJNA354235/), while we only found 735 samples contain both metagenomic and metatranscriptomic sequence data. The raw fastq files of these 735 samples can be downloaded from [NCBI SRA](https://www.ncbi.nlm.nih.gov/sra/) using the respecitve ID [<b>here</b>](http://bmbl.sdstate.edu/metaqubic/735_fastq_SRA_ID.txt)(52KB). 
+
+
 
 ***  
 
