@@ -248,7 +248,7 @@ MetaQUBIC supports self-provided reference databases by editing the pathway in t
 \
 To increase the processing speed, we recommend users use reference index files instead of .fa file. Then, use the -ind setting to indicate the index path and omit the -ref:
 ```{r,engine='bash',eval=FALSE}
-./master/runmeta --mapping -s ./meta_data/data/samples/ -ind ./meta_data/data/ref_index/ -o ./meta_data/results/align_out/ 
+./metaqubic-master/runmeta --mapping -s ./meta_data/data/samples -ref ./meta_data/data/ref/IGC_ref.fa -ind ./meta_data/data/ref_index -o1 ./meta_data/results/align_out -o2 ./meta_data/results/cat
 ```
 
 
