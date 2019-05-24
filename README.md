@@ -1,4 +1,15 @@
 # MetaQUBIC
+
+## Abstract
+Motivation
+Metagenomic and metatranscriptomic analyses can provide an abundance of information related to microbial communities. However, straightforward analysis of this data does not provide optimal results, with a required integration of data types being needed to thoroughly investigate these microbiomes and their environmental interactions.
+
+Results
+Here, we present MetaQUBIC, an integrated biclustering-based computational pipeline for gene module detection that integrates both metagenomic and metatranscriptomic data. Additionally, we used this pipeline to investigate 735 paired DNA and RNA human gut microbiome samples, resulting in a comprehensive hybrid gene expression matrix of 2.3 million cross-species genes in the 735 human faecal samples and 155 functional enriched gene modules. We believe both the MetaQUBIC pipeline and the generated comprehensive human gut hybrid expression matrix will facilitate further investigations into multiple levels of microbiome studies.
+
+**Citing Us:** Anjun Ma, Minxuan Sun, Adam McDermaid, Bingqiang Liu, Qin Ma
+*Bioinformatics*, btz414, https://doi.org/10.1093/bioinformatics/btz414
+
 ## Environment
 
 MetaQUBIC is an integrated C package requires a basic <b>UNIX/Linux environment</b>. The gcc compiler with <b>version 4.8.5 or higher</b> is required to be pririor installed. More details can be found <a href="https://gcc.gnu.org/wiki/InstallingGCC">here</a>. <b>Currently, MetaQUBIC does not support Mac or Windows system.</b>
