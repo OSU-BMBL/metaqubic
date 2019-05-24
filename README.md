@@ -268,7 +268,7 @@ MetaQUBIC can perform biclustering analysis on any given expression matrix as th
 ### 4.4 Execution-4 (various enrichment analyses)
 If more gene annotation files are provided or a conditional annotation file exist, the --enrichment function can take over them all at a time:
 ```{r,engine='bash',eval=FALSE}
-./master/runmeta --enrichment -i ./meta_data/results/bic -g ./meta_data/data/annotation/KEGG_ann1.txt ./meta_data/data/annotation/KEGG_ann2.txt -c ./meta_data/data/annotation/condition_ann.txt -o ./meta_data/results/enrich_out/
+./metaqubic-master/runmeta --enrichment -i ./meta_data/results/bic -g ./meta_data/data/annotation/KEGG_ann1.txt ./meta_data/data/annotation/KEGG_ann2.txt -c ./meta_data/data/annotation/condition_ann.txt -o ./meta_data/results/enrich_out/
 ```
 
 ### 4.5 Execution-5 (link to HUManN2)
@@ -286,7 +286,7 @@ gene-bic list, sequence-bic list
 \
 <i><b>Argument:</i></b>
 ```{r,engine='bash',eval=FALSE}
-../master/runmeta --bicToSeq -i ./meta_data/results/enrich_out/enriched.blocks -s. Sample001 -o ./meta_data/results/HUManN2
+./metaqubic-master/runmeta --bicToSeq -i ./meta_data/results/enrich_out/enriched.blocks -s. Sample001 -o ./meta_data/results/HUManN2
 ```
 
 Several examples are shown below to help users better understand the files (inputs and outputs) used or produced in MetaQUBIC.
