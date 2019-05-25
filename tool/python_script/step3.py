@@ -274,10 +274,15 @@ RNA_DNA_matrix_file = open(rna_dna_matrix_path)
 RNA_DNA_matrix_data = RNA_DNA_matrix_file.readlines()
 RNA_DNA_matrix_outFile = open(output_path + "/RDRPK_hGEM_filt.txt", "w")
 RNA_DNA_matrix_outFile.write(RNA_DNA_matrix_data[0])
-count = 0
-for line in RNA_DNA_matrix_data[1:]:
-    if line.split()[0] in mutual_gene_list:
-        RNA_DNA_matrix_outFile.write(line)
+
+RNA_DNA_matrix_dictionary = {}
+for line in RNA_DNA_matrix_data[1:]: # formating RNA/DNA
+    gene = line.split()[0]
+    RNA_DNA_matrix_dictionary[gene] = line
+
+for element in mutual_gene_list:
+    if element in RNA_DNA_matrix_dictionary:
+        RNA_DNA_matrix_outFile.write(RNA_DNA_matrix_dictionary[element])
 
 
 
