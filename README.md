@@ -1,4 +1,15 @@
 # MetaQUBIC
+
+## Abstract
+Motivation
+Metagenomic and metatranscriptomic analyses can provide an abundance of information related to microbial communities. However, straightforward analysis of this data does not provide optimal results, with a required integration of data types being needed to thoroughly investigate these microbiomes and their environmental interactions.
+
+Results
+Here, we present MetaQUBIC, an integrated biclustering-based computational pipeline for gene module detection that integrates both metagenomic and metatranscriptomic data. Additionally, we used this pipeline to investigate 735 paired DNA and RNA human gut microbiome samples, resulting in a comprehensive hybrid gene expression matrix of 2.3 million cross-species genes in the 735 human faecal samples and 155 functional enriched gene modules. We believe both the MetaQUBIC pipeline and the generated comprehensive human gut hybrid expression matrix will facilitate further investigations into multiple levels of microbiome studies.
+
+**Citing Us:** Anjun Ma, Minxuan Sun, Adam McDermaid, Bingqiang Liu, Qin Ma
+*Bioinformatics*, btz414, https://doi.org/10.1093/bioinformatics/btz414
+
 ## Environment
 
 MetaQUBIC is an integrated C package requires a basic <b>UNIX/Linux environment</b>. The gcc compiler with <b>version 4.8.5 or higher</b> is required to be pririor installed. More details can be found <a href="https://gcc.gnu.org/wiki/InstallingGCC">here</a>. <b>Currently, MetaQUBIC does not support Mac or Windows system.</b>
@@ -9,7 +20,7 @@ Our experimental test performed for mapping 735 datasets to the [IGC reference d
 
 # Usage
 
-## Installation
+## 1. Installation
 The source code of MetaQUBIC is freely available at: https://github.com/OSU-BMBL/metaqubic. 
 
 To install the MetaQUBIC, first, download the zip file manually from github, or use the code below in Unix:
@@ -32,11 +43,11 @@ Now the MetaQUBIC is successfully installed and ready for use. \
 
 ***
 
-
+### 2. Data preparation
 1. To run the tutorial, first download the [meta_data package HERE](http://bmbl.sdstate.edu/metaqubic/meta_data.gz) (3.7GB), or use wget code in Linux system:
 
 ```{r,engine='bash',eval=FALSE}
-cd /pylon5/cc5fpcp/anjunma/metaqubic/   
+cd /your/working/path/   
 wget http://bmbl.sdstate.edu/metaqubic/meta_data.gz
 ```
 
@@ -124,25 +135,25 @@ Extra data can be downloaded by clicking the links below:
 * [bicluster.blocks](http://bmbl.sdstate.edu/metaqubic/biclusters.blocks.tar.gz)  Biclustering results resulted in our paper.
 * [735 sample catlogs](http://bmbl.sdstate.edu/metaqubic/735_catalogs.tar.gz)(1GB)    All 735 catalog files.
 
-The raw fastq files of 735 samples can be downloaded from [NCBI SRA](https://www.ncbi.nlm.nih.gov/sra/) using the respecitve ID [<b>here</b>](http://bmbl.sdstate.edu/metaqubic/735_fastq_SRA_ID.txt)(52KB).
-4. The raw fastq files of 735 samples can be downloaded from [NCBI SRA](https://www.ncbi.nlm.nih.gov/sra/) using the respecitve ID <a href="http://bmbl.sdstate.edu/metaqubic/Tutorial/735_fastq_SRA_ID.txt"><b>here</b></a>.
+4. In total, 2598 samples were included in the original [Bioproject](https://www.ncbi.nlm.nih.gov/bioproject/PRJNA354235/), while we only found 735 samples contain both metagenomic and metatranscriptomic sequence data. The raw fastq files of these 735 samples can be downloaded from [NCBI SRA](https://www.ncbi.nlm.nih.gov/sra/) using the respecitve ID [<b>here</b>](http://bmbl.sdstate.edu/metaqubic/735_fastq_SRA_ID.txt)(52KB). 
+
+
 
 ***  
 
-
+## 3. General Pipeline
 The general pipeline of MetaQUBIC includes three parts (five codes) to process the raw sample fastq files and results in a functional enriched blocks file contains bicluster information.\
 Five more advanced executions can be reached in [4. Advance executions] section in user's preferance.
 
 
 First, go to the folder where you just unpacked the zip data:
 ```{r,engine='bash',eval=FALSE}
-cd /your/folder/path/metaqubic/ 
+cd /your/folder/path/
 ```
-Here, we put all three folders in the same root folder, so that we can easily use the same relative path in the following example. The three folders are:
+Here, we put both two folders in the same root folder, so that we can easily use the same relative path in the following example. The two folders are:
 
-&emsp;master - the metaQUBIC package folder.\
-&emsp;data - contains input data files like  reference, annotation, fastq, et al. (See Input data preparation)\
-&emsp;results - where all output files will be stored.(See Input data preparation)
+&emsp;metaqubic-master - the metaQUBIC package folder.\
+&emsp;meta_data - including <data> subfolder and <results> subfolder.
 
 ### 3.1 Part 1 - Gene mapping and catalog construction
 <i><b>Description:</i></b>
@@ -159,7 +170,7 @@ sam file (Sample001_DNA.sam,Sample001_RNA.sam), bam file (Sample001_DNA.bam, Sam
 \
 <i><b>Argument:</i></b>
 ```{r,engine='bash',eval=FALSE}
-./master/runmeta --mapping -s ./meta_data/data/samples/ -ref ./meta_data/data/ref/IGC_ref.fa -o1 ./meta_data/results/align_out/ -o2 ./meta_data/results/cat/
+./metaqubic-master/runmeta --mapping -s ./meta_data/data/samples/ -ref ./meta_data/data/ref/IGC_ref.fa -o1 ./meta_data/results/align_out/ -o2 ./meta_data/results/cat/
 ```
 
 
@@ -177,7 +188,7 @@ three updated hGEM (DNA_hGEM.txt, RNA_hGEM.txt, RDRPK_hGEM.txt)
 \
 <i><b>Argument:</i></b>
 ```{r,engine='bash',eval=FALSE}
-./master/runmeta --CatToMat -i ./meta_data/results/cat/ -m ./meta_data/data/735_hGEM/ -o ./meta_data/results/hGEM/
+./metaqubic-master/runmeta --CatToMat -i ./meta_data/results/cat/ -m ./meta_data/data/735_hGEM/ -o ./meta_data/results/hGEM/
 ```
 <b>Part 2.2</b>\
 <i><b>gene normalization and filtering:</i></b>
@@ -192,7 +203,7 @@ three filtered hGEM (DNA_hGEM_filt.txt, RNA_hGEM_filt.txt, RDRPK_hGEM_filt.txt),
 \
 <i><b>Argument:</i></b>
 ```{r,engine='bash',eval=FALSE}
-./master/runmeta --filtering -i ./meta_data/data/ref/IGC_ref.fa -m ./meta_data/results/hGEM/  -minTPM 1 -NominTPM 2 -o ./meta_data/results/hGEM_filt/
+./metaqubic-master/runmeta --filtering -i ./meta_data/data/ref/IGC_ref.fa -m ./meta_data/results/hGEM/ -minTPM 1 -NominTPM 2 -o ./meta_data/results/hGEM_filt/
 ```
 
 ### 3.3 Part 3 - Biclustering and enrichment analyses
@@ -209,14 +220,14 @@ biclusters (.blocks)
 \
 <i><b>Argument:</i></b>
 ```{r,engine='bash',eval=FALSE}
-./master/runmeta --biclustering -i ./meta_data/results/hGEM_filt/ -o ./meta_data/results/bic/ --QUBIC -c 1 -f 0.8 -o 100 
+./metaqubic-master/runmeta --biclustering -i ./meta_data/results/hGEM_filt/RDRPK_hGEM_filt.txt -o ./meta_data/results/bic/ --QUBIC -f 0.8 -o 200 
 ```
 <b>Part 3.2</b>\
 <i><b>functional enrichment:</i></b>
 \
 <i><b>Input:</i></b>
 \
-.blocks file, annotation file (KEGG_ann.txt)
+.blocks file, annotation file (KEGG_annotation.txt)
 \
 <i><b>Output:</i></b>
 \
@@ -224,12 +235,13 @@ enriched blocks file (.blocks), summary file (hGEM_enrichment.summary)
 \
 <i><b>Argument:</i></b>
 ```{r,engine='bash',eval=FALSE}
-./master/runmeta --enrichment -i ./meta_data/results/bic -g ./meta_data/data/annotation/KEGG_ann.txt -o ./meta_data/results/enrich_out/
+./metaqubic-master/runmeta --enrichment -i ./meta_data/results/bic/RDRPK_735_hGEM.txt.blocks -g ./meta_data/data/annotation/KEGG_annotation.txt -o ./meta_data/results/enrich_out/
 ```
 Note: the conditional annotations have not been provided by the author, thus, we omit the conditional enrichment here. 
 
 ***
 
+## 4. Advanced executions
 We also offer several executions to ease the way to use MetaQUBIC.
 
 ### 4.1 Execution-1 (using index files)
@@ -237,7 +249,7 @@ MetaQUBIC supports self-provided reference databases by editing the pathway in t
 \
 To increase the processing speed, we recommend users use reference index files instead of .fa file. Then, use the -ind setting to indicate the index path and omit the -ref:
 ```{r,engine='bash',eval=FALSE}
-./master/runmeta --mapping -s ./meta_data/data/samples/ -ind ./meta_data/data/ref_index/ -o ./meta_data/results/align_out/ 
+./metaqubic-master/runmeta --mapping -s ./meta_data/data/samples -ref ./meta_data/data/ref/IGC_ref.fa -ind ./meta_data/data/ref_index -o1 ./meta_data/results/align_out -o2 ./meta_data/results/cat
 ```
 
 
@@ -246,7 +258,7 @@ MetaQUBIC allows the user to add new samples directly to the three 735_sample_hG
 \
 To generate new matrix, turn off the -m flag in --CatToMat command:
 ```{r,engine='bash',eval=FALSE}
-./master/runmeta --CatToMat -i ./meta_data/results/cat/ -o ./meta_data/results/hGEM/
+./metaqubic-master/runmeta --CatToMat -i ./meta_data/results/cat/ -o ./meta_data/results/hGEM/
 ```
 
 
@@ -255,9 +267,9 @@ To generate new matrix, turn off the -m flag in --CatToMat command:
 MetaQUBIC can perform biclustering analysis on any given expression matrix as the user's preference. Simply use our provided filtered RD-RPK hGEM with 2.4 million genes X 735 samples, or any user's expression matrix, and start from Part 3 to omit the first two parts.
 
 ### 4.4 Execution-4 (various enrichment analyses)
-If more gene annotation files are provided or a conditional annotation file exist, the --enrichment function can take over them all at a time:
+If more gene annotation files are provided or a conditional annotation file exist, the --enrichment function can take over them all at a time:(Note: KEGG_ann1.txt, KEGG_ann2.txt, and condition_ann.txt are not provided in the package)
 ```{r,engine='bash',eval=FALSE}
-./master/runmeta --enrichment -i ./meta_data/results/bic -g ./meta_data/data/annotation/KEGG_ann1.txt ./meta_data/data/annotation/KEGG_ann2.txt -c ./meta_data/data/annotation/condition_ann.txt -o ./meta_data/results/enrich_out/
+./metaqubic-master/runmeta --enrichment -i ./meta_data/results/bic -g ./meta_data/data/annotation/KEGG_ann1.txt ./meta_data/data/annotation/KEGG_ann2.txt -c ./meta_data/data/annotation/condition_ann.txt -o ./meta_data/results/enrich_out/
 ```
 
 ### 4.5 Execution-5 (link to HUManN2)
@@ -275,7 +287,7 @@ gene-bic list, sequence-bic list
 \
 <i><b>Argument:</i></b>
 ```{r,engine='bash',eval=FALSE}
-../master/runmeta --bicToSeq -i ./meta_data/results/enrich_out/enriched.blocks -s. Sample001 -o ./meta_data/results/HUManN2
+./metaqubic-master/runmeta --bicToSeq -i ./meta_data/results/enrich_out/enriched.blocks -s. Sample001 -o ./meta_data/results/HUManN2
 ```
 
 Several examples are shown below to help users better understand the files (inputs and outputs) used or produced in MetaQUBIC.
