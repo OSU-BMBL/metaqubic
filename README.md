@@ -150,11 +150,10 @@ First, go to the folder where you just unpacked the zip data:
 ```{r,engine='bash',eval=FALSE}
 cd /your/folder/path/
 ```
-Here, we put all three folders in the same root folder, so that we can easily use the same relative path in the following example. The three folders are:
+Here, we put both two folders in the same root folder, so that we can easily use the same relative path in the following example. The two folders are:
 
 &emsp;metaqubic-master - the metaQUBIC package folder.\
-&emsp;data - contains input data files like  reference, annotation, fastq, et al. (See Input data preparation)\
-&emsp;results - where all output files will be stored.(See Input data preparation)
+&emsp;meta_data - including <data> subfolder and <results> subfolder.
 
 ### 3.1 Part 1 - Gene mapping and catalog construction
 <i><b>Description:</i></b>
