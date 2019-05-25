@@ -47,7 +47,7 @@ Now the MetaQUBIC is successfully installed and ready for use. \
 1. To run the tutorial, first download the [meta_data package HERE](http://bmbl.sdstate.edu/metaqubic/meta_data.gz) (3.7GB), or use wget code in Linux system:
 
 ```{r,engine='bash',eval=FALSE}
-cd /pylon5/cc5fpcp/anjunma/metaqubic/   
+cd /your/working/path/   
 wget http://bmbl.sdstate.edu/metaqubic/meta_data.gz
 ```
 
@@ -148,11 +148,11 @@ Five more advanced executions can be reached in [4. Advance executions] section 
 
 First, go to the folder where you just unpacked the zip data:
 ```{r,engine='bash',eval=FALSE}
-cd /your/folder/path/metaqubic/ 
+cd /your/folder/path/
 ```
 Here, we put all three folders in the same root folder, so that we can easily use the same relative path in the following example. The three folders are:
 
-&emsp;master - the metaQUBIC package folder.\
+&emsp;metaqubic-master - the metaQUBIC package folder.\
 &emsp;data - contains input data files like  reference, annotation, fastq, et al. (See Input data preparation)\
 &emsp;results - where all output files will be stored.(See Input data preparation)
 
@@ -221,14 +221,14 @@ biclusters (.blocks)
 \
 <i><b>Argument:</i></b>
 ```{r,engine='bash',eval=FALSE}
-./metaqubic-master/runmeta --biclustering -i ./meta_data/results/hGEM_filt/RDRPK_hGEM_filt.txt -o ./meta_data/results/bic/ --QUBIC -c 1 -f 0.8 -o 100 
+./metaqubic-master/runmeta --biclustering -i ./meta_data/results/hGEM_filt/RDRPK_hGEM_filt.txt -o ./meta_data/results/bic/ --QUBIC -f 0.8 -o 200 
 ```
 <b>Part 3.2</b>\
 <i><b>functional enrichment:</i></b>
 \
 <i><b>Input:</i></b>
 \
-.blocks file, annotation file (KEGG_ann.txt)
+.blocks file, annotation file (KEGG_annotation.txt)
 \
 <i><b>Output:</i></b>
 \
