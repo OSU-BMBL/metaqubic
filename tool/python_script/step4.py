@@ -30,7 +30,7 @@ if argument.find("-f") == -1:
 if argument.find("-c") == -1:
     argument = argument + " -c 1"
 if argument.find("-o") == -1:
-    argument = argument + " -o 100"
+    argument = argument + " -o 200"
 if argument.find("-k") == -1:
     argument = argument + " -k 20"
 

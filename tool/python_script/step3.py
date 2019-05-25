@@ -115,7 +115,7 @@ column = 0
 
 # convert DNA_matrix_data to the matrix
 while row < len(DNA_matrix_data):
-    DNA_matrix_data[row] = DNA_matrix_data[row].split('\t')
+    DNA_matrix_data[row] = DNA_matrix_data[row].split()
     if DNA_matrix_data[row][-1] == '\n' or DNA_matrix_data[row][-1] == '\t':
         DNA_matrix_data[row] = DNA_matrix_data[row][0:-1]
     row = row + 1
@@ -186,7 +186,7 @@ column = 0
 
 # convert DNA_matrix_data to the matrix
 while row < len(RNA_matrix_data):
-    RNA_matrix_data[row] = RNA_matrix_data[row].split('\t')
+    RNA_matrix_data[row] = RNA_matrix_data[row].split()
     if RNA_matrix_data[row][-1] == '\n' or RNA_matrix_data[row][-1] == '\t':
         RNA_matrix_data[row] = RNA_matrix_data[row][0:-1]
     row = row + 1
@@ -260,13 +260,13 @@ TPM_RNA_matrix_data = TPM_RNA_matrix.readlines()
 # get DNA gene list
 DNA_gene_list = []
 for line in TPM_DNA_matrix_data[1:]:
-    DNA_gene_list.append(line.split('\t')[0])
+    DNA_gene_list.append(line.split()[0])
 print "number of DNA gene: " + str(len(DNA_gene_list))
 
 # get RNA gene list
 RNA_gene_list = []
 for line in TPM_RNA_matrix_data[1:]:
-    RNA_gene_list.append(line.split('\t')[0])
+    RNA_gene_list.append(line.split()[0])
 print "number of RNA gene: " + str(len(RNA_gene_list))
 
 # get mutual gene list
@@ -280,7 +280,7 @@ RNA_DNA_matrix_outFile = open(output_path + "/RDRPK_hGEM_filt.txt", "w")
 RNA_DNA_matrix_outFile.write(RNA_DNA_matrix_data[0])
 count = 0
 for line in RNA_DNA_matrix_data[1:]:
-    if line.split('\t')[0] in mutual_gene_list:
+    if line.split()[0] in mutual_gene_list:
         RNA_DNA_matrix_outFile.write(line)
 
 
