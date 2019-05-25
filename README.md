@@ -236,7 +236,7 @@ enriched blocks file (.blocks), summary file (hGEM_enrichment.summary)
 \
 <i><b>Argument:</i></b>
 ```{r,engine='bash',eval=FALSE}
-./metaqubic-master/runmeta --enrichment -i ./meta_data/results/bic/RDRPK_735_hGEM.txt.blocks -g ./meta_data/data/annotation/KEGG_ann.txt -o ./meta_data/results/enrich_out/
+./metaqubic-master/runmeta --enrichment -i ./meta_data/results/bic/RDRPK_735_hGEM.txt.blocks -g ./meta_data/data/annotation/KEGG_annotation.txt -o ./meta_data/results/enrich_out/
 ```
 Note: the conditional annotations have not been provided by the author, thus, we omit the conditional enrichment here. 
 
@@ -268,7 +268,7 @@ To generate new matrix, turn off the -m flag in --CatToMat command:
 MetaQUBIC can perform biclustering analysis on any given expression matrix as the user's preference. Simply use our provided filtered RD-RPK hGEM with 2.4 million genes X 735 samples, or any user's expression matrix, and start from Part 3 to omit the first two parts.
 
 ### 4.4 Execution-4 (various enrichment analyses)
-If more gene annotation files are provided or a conditional annotation file exist, the --enrichment function can take over them all at a time:
+If more gene annotation files are provided or a conditional annotation file exist, the --enrichment function can take over them all at a time:(Note: KEGG_ann1.txt, KEGG_ann2.txt, and condition_ann.txt are not provided in the package)
 ```{r,engine='bash',eval=FALSE}
 ./metaqubic-master/runmeta --enrichment -i ./meta_data/results/bic -g ./meta_data/data/annotation/KEGG_ann1.txt ./meta_data/data/annotation/KEGG_ann2.txt -c ./meta_data/data/annotation/condition_ann.txt -o ./meta_data/results/enrich_out/
 ```
