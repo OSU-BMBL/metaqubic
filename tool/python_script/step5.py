@@ -63,11 +63,11 @@ if os.path.exists(output_path) == False:
     sys.exit() 
 for element in gene_annotation:
     if os.path.exists(element) == False:
-        print "ERROR - the path is invalid: " + output_path
+        print "ERROR - the gene annotation file is invalid: " + output_path
         sys.exit() 
 for element in sample_annotation:
     if os.path.exists(element) == False:
-        print "ERROR - the path is invalid: " + output_path
+        print "ERROR - the sample annotation file is invalid: " + output_path
         sys.exit()
 
 
