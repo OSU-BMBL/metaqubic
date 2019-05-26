@@ -235,7 +235,7 @@ enriched blocks file (.blocks), summary file (hGEM_enrichment.summary)
 \
 <i><b>Argument:</i></b>
 ```{r,engine='bash',eval=FALSE}
-./metaqubic-master/runmeta --enrichment -i ./meta_data/results/bic/RDRPK_735_hGEM.txt.blocks -g ./meta_data/data/annotation/KEGG_annotation.txt -o ./meta_data/results/enrich_out/
+./metaqubic-master/runmeta --enrichment -i ./meta_data/results/bic/RDRPK_735_hGEM.txt.blocks -g ./meta_data/data/annotations/kegg_annotation.txt -o ./meta_data/results/enrich_out/
 ```
 Note: the conditional annotations have not been provided by the author, thus, we omit the conditional enrichment here. 
 
