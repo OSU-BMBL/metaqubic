@@ -173,7 +173,6 @@ if len(gene_annotation) != 0:
                     biclusters[count][0] = biclusters[count][0] + "\tFunction:" + str(key_list[x]) + "\tPvalue: " + str(value) + "\tBH_adjust_Pvalue: " + str(BH_adjust[x])
                 x = x + 1
             count = count + 1
-            print count
             
 
         # pvalue 0.05 threshold
