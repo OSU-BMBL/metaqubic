@@ -278,6 +278,25 @@ for bicluster in biclusters:
         for element in  bicluster[0].split('\t')[2:]:
             outFile.write(element + "\t")
         outFile.write("\n")
+outFile.close()
+
+# generate new .blocks file
+enrichment_report_file = open(output_path + "/enrichment_report.txt", "r")
+enrichment_report_data = enrichment_report_file.readlines()
+enrich_blcluster = []
+for line in enrichment_report_data:
+    enrich_blcluster.append(line.split()[0])
+
+new_block_file = open(output_path + "/enriched_blocks_file.blocks", "w")
+count = 0
+while count < len(block_data):
+    if block_data[count] not in ('\n', '\r\n') and block_data[count].split()[0] in enrich_blcluster:
+        while block_data[count] not in ('\n', '\r\n'):
+            new_block_file.write(block_data[count])
+            count += 1
+        new_block_file.write('\n')
+    count += 1
+
     
 # calculate purity
 # total_purity = 0
