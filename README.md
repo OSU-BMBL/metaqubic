@@ -287,7 +287,7 @@ gene-bic list, sequence-bic list
 \
 <i><b>Argument:</i></b>
 ```{r,engine='bash',eval=FALSE}
-./metaqubic-master/runmeta --bicToSeq -i ./meta_data/results/enrich_out/enriched.blocks -s. Sample001 -o ./meta_data/results/HUManN2
+./metaqubic-master/runmeta --bicToSeq -i ./meta_data/results/enrich_out/enriched_blocks_file.blocks -s. Sample001 -o ./meta_data/results/HUManN2
 ```
 
 Several examples are shown below to help users better understand the files (inputs and outputs) used or produced in MetaQUBIC.
