@@ -22,13 +22,13 @@ while count < len(sys.argv):
         output_path = sys.argv[count + 1]
     count = count + 1
 if os.path.exists(block_file) == False:
-        print "ERROR - the path of blocks file is invalid: " + matrix_folder
+        print "ERROR - the path of blocks file is invalid: " + block_file
         sys.exit()
-if len(sample_name) == False:
-        print "ERROR - the sample name is invalid: " + matrix_folder
+if len(sample_name) == 0:
+        print "ERROR - the sample name is invalid: " + sample_name
         sys.exit()
-if os.path.exists(block_file) == False:
-        print "ERROR - the path of sam file is invalid: " + matrix_folder
+if os.path.exists(sam_file) == False:
+        print "ERROR - the path of sam file is invalid: " + sam_file
         sys.exit()
 if os.path.isdir(output_path) == False:
         os.system("mkdir " + output_path)
