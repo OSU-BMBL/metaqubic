@@ -19,3 +19,6 @@ void step5_sample(const int argc, const char ** argv);
 
 // main function for step5_gene
 void step5_gene(const int argc, const char ** argv);
+
+// main function for human2
+void step6(const int argc, const char ** argv);

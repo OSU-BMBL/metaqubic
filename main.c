@@ -45,6 +45,11 @@ int main(const int argc, const char ** argv)
         printf("step 5 (enrichment analysis) is processing.\n");
         step5(argc, &argv[2]);
     }
+    else if(strcmp(argv[1], "--bicToSeq") == 0)
+    {
+        printf("Link to HUManN2 is processing.\n");
+        step6(argc, &argv[2]);
+    }
     else
     {
         printf("wrong arguments\n");
