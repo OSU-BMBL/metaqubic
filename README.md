@@ -256,7 +256,7 @@ To increase the processing speed, we recommend users use reference index files i
 ### 4.2 Execution-2 (update hGEM vs new hGEM)
 MetaQUBIC allows the user to add new samples directly to the three 735_sample_hGEM we provided to increase the sample pool for a better study of the human gut microbiome (Step 3.2). However, if users are discovering metagenome data from other environment or simply only want to use their own data, they need to generate three new hGEM alone, using the code below without the provided three hGEM matrices. 
 \
-To generate new matrix, turn off the -m flag in --CatToMat command:
+To generate new matrix, turn off the -m flag in --CatToMat command, at least 50 samples should be included:
 ```{r,engine='bash',eval=FALSE}
 ./metaqubic-master/runmeta --CatToMat -i ./meta_data/results/cat/ -o ./meta_data/results/hGEM/
 ```
@@ -287,7 +287,7 @@ gene-bic list, sequence-bic list
 \
 <i><b>Argument:</i></b>
 ```{r,engine='bash',eval=FALSE}
-./metaqubic-master/runmeta --bicToSeq -i ./meta_data/results/enrich_out/enriched.blocks -s. Sample001 -o ./meta_data/results/HUManN2
+./metaqubic-master/runmeta --bicToSeq -i ./meta_data/results/enrich_out/enriched_blocks_file.blocks -s. Sample001 -o ./meta_data/results/HUManN2
 ```
 
 Several examples are shown below to help users better understand the files (inputs and outputs) used or produced in MetaQUBIC.
