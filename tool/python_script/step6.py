@@ -64,6 +64,7 @@ while count < len(block_data):
         sample_list = block_data[count + 2].split()[2:]
         if sample_name in sample_list:
             for gene in gene_list:
-                for sequence in sam_dic[gene]:
-                    outFile.write(gene + "\t" + sequence + "\n")
+                if gene in sam_dic:
+                    for sequence in sam_dic[gene]:
+                        outFile.write(gene + "\t" + sequence + "\n")
     count += 1
