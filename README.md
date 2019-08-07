@@ -44,11 +44,11 @@ Now the MetaQUBIC is successfully installed and ready for use. \
 ***
 
 ### 2. Data preparation
-1. To run the tutorial, first download the [meta_data package HERE](http://bmbl.sdstate.edu/metaqubic/meta_data.gz) (3.7GB), or use wget code in Linux system:
+1. To run the tutorial, first download the [meta_data package HERE](https://bmbl.bmi.osumc.edu/metaqubic/meta_data.gz) (3.7GB), or use wget code in Linux system:
 
 ```{r,engine='bash',eval=FALSE}
 cd /your/working/path/   
-wget http://bmbl.sdstate.edu/metaqubic/meta_data.gz
+wget https://bmbl.bmi.osumc.edu/metaqubic/meta_data.gz
 ```
 
 <div style="text-indent:3em">
@@ -130,12 +130,12 @@ tar -xvzf meta_data.gz && rm -rf meta_data.gz
 
 3. Extra data can be downloaded by clicking the links below:
 Extra data can be downloaded by clicking the links below:
-* [IGC_index.tar.gz](http://bmbl.sdstate.edu/metaqubic/IGC_index.tar.gz)(10GB)  Reference index files resulted from bowtie2. See usage in 4.1 Execution-1 (using index files)
-* [RDRPK_735_hGEM_filt.txt](http://bmbl.sdstate.edu/metaqubic/RDRPK_735_hGEM_filt.txt.tar.gz)(160MB, unzip to 2.7GB)  The filtered hGEM matrix. See usage in 4.3 Execution-3 (starting from biclustering)
-* [bicluster.blocks](http://bmbl.sdstate.edu/metaqubic/biclusters.blocks.tar.gz)  Biclustering results resulted in our paper.
-* [735 sample catlogs](http://bmbl.sdstate.edu/metaqubic/735_catalogs.tar.gz)(1GB)    All 735 catalog files.
+* [IGC_index.tar.gz](https://bmbl.bmi.osumc.edu/metaqubic/IGC_index.tar.gz)(10GB)  Reference index files resulted from bowtie2. See usage in 4.1 Execution-1 (using index files)
+* [RDRPK_735_hGEM_filt.txt](https://bmbl.bmi.osumc.edu/metaqubic/RDRPK_735_hGEM_filt.txt.tar.gz)(160MB, unzip to 2.7GB)  The filtered hGEM matrix. See usage in 4.3 Execution-3 (starting from biclustering)
+* [bicluster.blocks](https://bmbl.bmi.osumc.edu/metaqubic/biclusters.blocks.tar.gz)  Biclustering results resulted in our paper.
+* [735 sample catlogs](https://bmbl.bmi.osumc.edu/metaqubic/735_catalogs.tar.gz)(1GB)    All 735 catalog files.
 
-4. In total, 2598 samples were included in the original [Bioproject](https://www.ncbi.nlm.nih.gov/bioproject/PRJNA354235/), while we only found 735 samples contain both metagenomic and metatranscriptomic sequence data. The raw fastq files of these 735 samples can be downloaded from [NCBI SRA](https://www.ncbi.nlm.nih.gov/sra/) using the respecitve ID [<b>here</b>](http://bmbl.sdstate.edu/metaqubic/735_fastq_SRA_ID.txt)(52KB). 
+4. In total, 2598 samples were included in the original [Bioproject](https://www.ncbi.nlm.nih.gov/bioproject/PRJNA354235/), while we only found 735 samples contain both metagenomic and metatranscriptomic sequence data. The raw fastq files of these 735 samples can be downloaded from [NCBI SRA](https://www.ncbi.nlm.nih.gov/sra/) using the respecitve ID [<b>here</b>](https://bmbl.bmi.osumc.edu/metaqubic/735_fastq_SRA_ID.txt)(52KB). 
 
 
 
@@ -295,19 +295,19 @@ Several examples are shown below to help users better understand the files (inpu
 \
 <b>Other files:</b>
 \
-<center><img src="http://bmbl.sdstate.edu/metaqubic/Tutorial/Figure3.jpg" alt="The MetaQUBIC pipeline" width="85%"></center>
+<center><img src="https://bmbl.bmi.osumc.edu/metaqubic/Tutorial/Figure3.jpg" alt="The MetaQUBIC pipeline" width="85%"></center>
 
 ***
 
-<center><img src="http://bmbl.sdstate.edu/metaqubic/Tutorial/Figure4.jpg" alt="The MetaQUBIC pipeline" width="100%"></center>
+<center><img src="https://bmbl.bmi.osumc.edu/metaqubic/Tutorial/Figure4.jpg" alt="The MetaQUBIC pipeline" width="100%"></center>
 
 ***
 
-<center><img src="http://bmbl.sdstate.edu/metaqubic/Tutorial/Figure5.jpg" alt="The MetaQUBIC pipeline" width="100%"></center>
+<center><img src="https://bmbl.bmi.osumc.edu/metaqubic/Tutorial/Figure5.jpg" alt="The MetaQUBIC pipeline" width="100%"></center>
 
 ***
 
-<center><img src="http://bmbl.sdstate.edu/metaqubic/Tutorial/Figure6.jpg" alt="The MetaQUBIC pipeline" width="100%"></center>
+<center><img src="https://bmbl.bmi.osumc.edu/metaqubic/Tutorial/Figure6.jpg" alt="The MetaQUBIC pipeline" width="100%"></center>
 
 *** 
 

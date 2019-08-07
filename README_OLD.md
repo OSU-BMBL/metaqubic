@@ -28,9 +28,9 @@ Now the MetaQUBIC is successfully installed and ready for use. \
 <b>Note:</b> the installation of scipy package may ask you to agree with a user agreement. Simply click Enter button to continue.
 
 ### Data accessibility 
-To run the tutorial, download the Meta_data package incuding the essential files [HERE](http://bmbl.sdstate.edu/metaqubic/meta_data.gz), or use wget code in Linux system:
+To run the tutorial, download the Meta_data package incuding the essential files [HERE](https://bmbl.bmi.osumc.edu/metaqubic/meta_data.gz), or use wget code in Linux system:
 ```{r,engine='bash',eval=FALSE}
-wget http://bmbl.sdstate.edu/metaqubic/meta_data.gz
+wget https://bmbl.bmi.osumc.edu/metaqubic/meta_data.gz
 ```
 Unzip the package to obtain data including: 
 (1) the IGC reference fasta file, 
@@ -39,12 +39,12 @@ Unzip the package to obtain data including:
 (4) one sample of paired DNA and RNA fastq files
 
 Extra data can be downloaded by clicking the links below:
-* [IGC_index.tar.gz](http://bmbl.sdstate.edu/metaqubic/IGC_index.tar.gz)(10GB)  Reference index files resulted from bowtie2. See usage in 4.1 Execution-1 (using index files)
-* [RDRPK_735_hGEM_filt.txt](http://bmbl.sdstate.edu/metaqubic/RDRPK_735_hGEM_filt.txt.tar.gz)(160MB, unzip to 2.7GB)  The filtered hGEM matrix. See usage in 4.3 Execution-3 (starting from biclustering)
-* [bicluster.blocks](http://bmbl.sdstate.edu/metaqubic/biclusters.blocks.tar.gz)  Biclustering results resulted in our paper.
-* [735 sample catlogs](http://bmbl.sdstate.edu/metaqubic/735_catalogs.tar.gz)(1GB)    All 735 catalog files.
+* [IGC_index.tar.gz](https://bmbl.bmi.osumc.edu/metaqubic/IGC_index.tar.gz)(10GB)  Reference index files resulted from bowtie2. See usage in 4.1 Execution-1 (using index files)
+* [RDRPK_735_hGEM_filt.txt](https://bmbl.bmi.osumc.edu/metaqubic/RDRPK_735_hGEM_filt.txt.tar.gz)(160MB, unzip to 2.7GB)  The filtered hGEM matrix. See usage in 4.3 Execution-3 (starting from biclustering)
+* [bicluster.blocks](https://bmbl.bmi.osumc.edu/metaqubic/biclusters.blocks.tar.gz)  Biclustering results resulted in our paper.
+* [735 sample catlogs](https://bmbl.bmi.osumc.edu/metaqubic/735_catalogs.tar.gz)(1GB)    All 735 catalog files.
 
-The raw fastq files of 735 samples can be downloaded from [NCBI SRA](https://www.ncbi.nlm.nih.gov/sra/) using the respecitve ID [<b>here</b>](http://bmbl.sdstate.edu/metaqubic/735_fastq_SRA_ID.txt)(52KB).
+The raw fastq files of 735 samples can be downloaded from [NCBI SRA](https://www.ncbi.nlm.nih.gov/sra/) using the respecitve ID [<b>here</b>](https://bmbl.bmi.osumc.edu/metaqubic/735_fastq_SRA_ID.txt)(52KB).
 
 
 
